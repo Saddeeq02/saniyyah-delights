@@ -1,0 +1,12 @@
+# Operating System Files
+.DS_Store
+Thumbs.db
+
+# Archives & Temporary Artifacts
+saniyyah_deploy.zip
+*.log
+
+# Editor / Scratch Directories
+.idea/
+.vscode/
+scratch/

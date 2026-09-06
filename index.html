@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Saniyyah's Delights | Artisanal Sweets, Gullisuwa & Treats in Kano</title>
+  <meta name="description" content="Where cravings meets light. Handcrafted traditional Northern Nigerian sweets, Gullisuwa, Alewar Madara, Gireba, Alkaki and savory small chops in Kano. Order fresh daily.">
+  <meta name="keywords" content="Gullisuwa Kano, Alewar Madara, Saniyyah Delights, Gireba, Alkaki, Nigerian sweets, Kano treats, Small chops Kano">
+  
+  <!-- Canonical & Social Sharing (WhatsApp, Instagram, Twitter) -->
+  <link rel="canonical" href="https://saniyyahdelight.com.ng">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://saniyyahdelight.com.ng">
+  <meta property="og:title" content="Saniyyah's Delights | Artisanal Sweets & Northern Nigerian Treats">
+  <meta property="og:description" content="Where cravings meet delight. Handcrafted traditional Northern Nigerian sweets, Gullisuwa, Alewar Madara, Honey Glazed Alkaki, Iloka, and savory small chops in Kano. Order fresh daily.">
+  <meta property="og:image" content="https://saniyyahdelight.com.ng/assets/images/gullisuwa.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://saniyyahdelight.com.ng">
+  <meta name="twitter:title" content="Saniyyah's Delights | Artisanal Sweets & Treats in Kano">
+  <meta name="twitter:description" content="Handcrafted traditional Northern Nigerian sweets, Gullisuwa, Alewar Madara, Honey Glazed Alkaki, Iloka, and savory small chops in Kano.">
+  <meta name="twitter:image" content="https://saniyyahdelight.com.ng/assets/images/gullisuwa.jpg">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍬</text></svg>">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,700;0,800;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Confetti Canvas for Birthday Surprise -->
+  <canvas id="confettiCanvas"></canvas>
+
+  <!-- Birthday Surprise Top Ribbon / Interactive Trigger -->
+  <div id="birthdayRibbon" class="birthday-ribbon">
+    <div class="ribbon-content">
+      <span class="ribbon-sparkle">✨🎂</span>
+      <span class="ribbon-text"><strong>Special Birthday Edition!</strong> Celebrating our founder <strong>Saniyyah</strong></span>
+      <button id="surpriseModalBtn" class="ribbon-btn" aria-label="Open Birthday Surprise">Open Birthday Surprise 🎁</button>
+      <button id="closeRibbonBtn" class="ribbon-close" aria-label="Close Ribbon">&times;</button>
+    </div>
+  </div>
+
+  <!-- Header & Navigation -->
+  <header id="mainHeader" class="header">
+    <div class="container nav-container">
+      <a href="#hero" class="brand-logo" aria-label="Saniyyah's Delights Home">
+        <div class="logo-mark">
+          <svg viewBox="0 0 100 100" class="logo-svg" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="50" cy="50" r="46" stroke="url(#goldGrad)" stroke-width="2.5" stroke-dasharray="3 3"/>
+            <path d="M28 50 C28 32, 72 32, 72 50 C72 68, 28 68, 28 50 Z" fill="url(#goldGrad)" fill-opacity="0.15"/>
+            <path d="M50 20 L53 30 L63 33 L55 40 L57 50 L50 44 L43 50 L45 40 L37 33 L47 30 Z" fill="url(#goldGrad)" transform="scale(0.5) translate(50, 20)"/>
+            <text x="50" y="58" font-family="'Playfair Display', serif" font-size="28" font-weight="700" fill="#F7E7C4" text-anchor="middle" font-style="italic">S</text>
+            <defs>
+              <linearGradient id="goldGrad" x1="0" y1="0" x2="100" y2="100">
+                <stop offset="0%" stop-color="#F9E29D"/>
+                <stop offset="50%" stop-color="#D4AF37"/>
+                <stop offset="100%" stop-color="#AA771C"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+        <div class="brand-text-wrap">
+          <span class="brand-name">Saniyyah’s</span>
+          <span class="brand-sub">DELIGHTS</span>
+        </div>
+      </a>
+
+      <!-- Desktop Navigation -->
+      <nav class="main-nav" aria-label="Primary Navigation">
+        <ul class="nav-list">
+          <li><a href="#hero" class="nav-link active">Home</a></li>
+          <li><a href="#menu" class="nav-link">Our Treats</a></li>
+          <li><a href="#specialties" class="nav-link">Heritage & Craft</a></li>
+          <li><a href="#reviews" class="nav-link">Moments</a></li>
+          <li><a href="#contact" class="nav-link">Location</a></li>
+        </ul>
+      </nav>
+
+      <!-- Nav Actions -->
+      <div class="nav-actions">
+        <button id="cartDrawerBtn" class="cart-btn" aria-label="View Order Tray">
+          <span class="cart-icon">🛍️</span>
+          <span class="cart-label">Order Tray</span>
+          <span id="cartCountBadge" class="cart-badge">0</span>
+        </button>
+
+        <a href="https://wa.me/2348081454682?text=Hello%20Saniyyah's%20Delights!%20I%20would%20like%20to%20order%20some%20fresh%20treats." target="_blank" rel="noopener" class="btn-whatsapp-pill" aria-label="Chat on WhatsApp">
+          <span class="online-indicator"></span>
+          <svg class="wa-icon" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0012.04 2zm5.78 14.07c-.24.68-1.4 1.27-1.92 1.35-.49.07-1.12.1-3.64-.94-3.21-1.33-5.26-4.57-5.42-4.78-.16-.21-1.3-1.73-1.3-3.3 0-1.57.82-2.34 1.11-2.66.29-.31.63-.39.84-.39.21 0 .42 0 .6.01.2.01.46-.07.72.55.27.65.92 2.24 1 2.4.08.17.14.37.02.59-.11.23-.17.37-.34.57-.17.2-.36.45-.52.61-.17.17-.35.36-.15.7.2.34.89 1.47 1.91 2.38 1.31 1.17 2.42 1.53 2.76 1.7.34.17.54.14.74-.09.2-.23.86-1 1.09-1.35.23-.34.46-.29.77-.17.31.11 1.99.94 2.33 1.11.34.17.57.26.65.4.08.15.08.85-.16 1.53z"/>
+          </svg>
+          <span class="btn-text">WhatsApp Order</span>
+        </a>
+
+        <!-- Mobile Menu Hamburger -->
+        <button id="menuToggle" class="hamburger-btn" aria-label="Toggle menu" aria-expanded="false">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Drawer Navigation -->
+    <div id="mobileNavDrawer" class="mobile-drawer" aria-hidden="true">
+      <div class="mobile-drawer-header">
+        <span class="drawer-title">Saniyyah’s Delights</span>
+        <button id="closeMobileNavBtn" class="close-drawer-btn" aria-label="Close menu">&times;</button>
+      </div>
+      <ul class="mobile-nav-list">
+        <li><a href="#hero" class="mobile-link">Home</a></li>
+        <li><a href="#menu" class="mobile-link">Our Treats Menu</a></li>
+        <li><a href="#specialties" class="mobile-link">Heritage & Craft</a></li>
+        <li><a href="#reviews" class="mobile-link">Customer Moments</a></li>
+        <li><a href="#contact" class="mobile-link">Kano Delivery & Contact</a></li>
+      </ul>
+      <div class="mobile-drawer-footer">
+        <button id="mobileSurpriseBtn" class="btn btn-celebrate w-full mb-3">🎂 Open Birthday Surprise!</button>
+        <a href="https://wa.me/2348081454682" target="_blank" rel="noopener" class="btn btn-primary w-full">Chat with Saniyyah on WhatsApp</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="mainContent">
+
+    <!-- HERO SECTION -->
+    <section id="hero" class="hero-section">
+      <div class="hero-backdrop-glow"></div>
+      <div class="container hero-grid">
+        <div class="hero-content">
+          <div class="tagline-pill">
+            <span class="glow-dot">💡</span>
+            <span>Where Cravings Meets Light</span>
+          </div>
+          <h1 class="hero-title">
+            Artisanal Confections & <br>
+            <span class="gold-gradient-text">Northern Sweet Heritage</span>
+          </h1>
+          <p class="hero-description">
+            Freshly prepared daily in Kabuga Tudun Yola, Kano. From melt-in-the-mouth <strong>Gullisuwa</strong> and velvety <strong>Alewar Madara</strong> to crumbly <strong>Gireba</strong> and crisp small chops — handcrafted perfection for your parties, hangouts, and precious moments.
+          </p>
+
+          <div class="hero-cta-group">
+            <a href="#menu" class="btn btn-primary">
+              <span>Explore The Menu</span>
+              <svg class="arrow-icon" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"/>
+              </svg>
+            </a>
+            <button id="heroSurpriseTrigger" class="btn btn-outline-gold">
+              <span>Birthday Greeting 🎂</span>
+            </button>
+          </div>
+
+          <!-- Feature Badges -->
+          <div class="hero-metrics">
+            <div class="metric-item">
+              <div class="metric-icon">🥛</div>
+              <div class="metric-text">
+                <span class="metric-title">100% Full Cream Milk</span>
+                <span class="metric-desc">Rich, authentic ingredients</span>
+              </div>
+            </div>
+            <div class="metric-divider"></div>
+            <div class="metric-item">
+              <div class="metric-icon">📍</div>
+              <div class="metric-text">
+                <span class="metric-title">Fresh Daily in Kano</span>
+                <span class="metric-desc">Kabuga Tudun Yola delivery</span>
+              </div>
+            </div>
+            <div class="metric-divider"></div>
+            <div class="metric-item">
+              <div class="metric-icon">⭐</div>
+              <div class="metric-text">
+                <span class="metric-title">5.0 Star Delights</span>
+                <span class="metric-desc">Beloved event favorites</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hero Visual Showcase -->
+        <div class="hero-visual">
+          <div class="visual-card-glass">
+            <div class="image-wrapper">
+              <img src="assets/images/hero_treats.jpg" alt="Artisanal Northern Nigerian treats by Saniyyah's Delights including Gullisuwa, Alkaki, Gireba and Alewar Madara" class="hero-image" id="heroImage" width="1280" height="720">
+              <div class="image-shine-overlay"></div>
+            </div>
+
+            <!-- Floating Product Tags -->
+            <div class="floating-badge badge-top-right">
+              <span class="badge-icon">🤤</span>
+              <div>
+                <strong>Hot Gullisuwa</strong>
+                <small>Fresh Batch Daily</small>
+              </div>
+            </div>
+
+            <div class="floating-badge badge-bottom-left">
+              <span class="badge-icon">✨</span>
+              <div>
+                <strong>Custom Gift Boxes</strong>
+                <small>Weddings & Hangouts</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BIRTHDAY SPOTLIGHT HERO BANNER -->
+    <section class="birthday-banner-section">
+      <div class="container">
+        <div class="birthday-card-banner">
+          <div class="card-sparkles"></div>
+          <div class="birthday-banner-grid">
+            <div class="birthday-badge-col">
+              <div class="cake-emblem">🎂</div>
+            </div>
+            <div class="birthday-text-col">
+              <span class="bday-kicker">A Loving Birthday Tribute</span>
+              <h2 class="bday-heading">Happy Birthday to our Master Confectioner, Saniyyah! 🎉</h2>
+              <p class="bday-quote">
+                "May your day be as sweet as your Gullisuwa, as rich as your Alewar Madara, and filled with endless blessings, joy, and thriving success. You bring light and sweetness to every gathering!"
+              </p>
+            </div>
+            <div class="birthday-action-col">
+              <button id="triggerConfettiBtn" class="btn btn-celebrate">
+                <span>Shower Confetti! 🎊</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TREATS MENU SECTION -->
+    <section id="menu" class="section-menu">
+      <div class="container">
+        <div class="section-header text-center">
+          <span class="section-badge">Handcrafted With Passion</span>
+          <h2 class="section-title">Our Signature Sweet & Savory Treats</h2>
+          <p class="section-subtitle">
+            Every bite is made with wholesome whole-cream milk, pure aromatic spices, and traditional recipes perfected in the heart of Kano.
+          </p>
+
+          <!-- Category Filter Tabs -->
+          <div class="filter-tabs" role="tablist" aria-label="Treat categories">
+            <button class="tab-btn active" data-category="all" role="tab" aria-selected="true">All Delights</button>
+            <button class="tab-btn" data-category="milk-sweets" role="tab" aria-selected="false">Milk Sweets (Madara)</button>
+            <button class="tab-btn" data-category="pastries" role="tab" aria-selected="false">Pastries & Cookies</button>
+            <button class="tab-btn" data-category="savory" role="tab" aria-selected="false">Small Chops & Savory</button>
+          </div>
+        </div>
+
+        <!-- Product Grid -->
+        <div id="treatsGrid" class="treats-grid">
+          <!-- Dynamically populated via app.js with rich fallback items -->
+        </div>
+
+        <!-- Custom Order Banner -->
+        <div class="custom-platter-banner">
+          <div class="banner-inner">
+            <div class="banner-content">
+              <h3>Planning a Wedding, Birthday Party or Hangout in Kano?</h3>
+              <p>We provide customized gift packages, party trays, and curated dessert boxes delivered right to your venue.</p>
+            </div>
+            <a href="https://wa.me/2348081454682?text=Hello%20Saniyyah!%20I%20need%20a%20custom%20event%20platter%20for%20my%20upcoming%20party." target="_blank" rel="noopener" class="btn btn-gold-solid">
+              <span>Book Event Package on WhatsApp</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- HERITAGE & CRAFT STORY SECTION -->
+    <section id="specialties" class="section-story">
+      <div class="container story-grid">
+        <div class="story-image-stack">
+          <div class="story-img-main">
+            <img src="assets/images/gullisuwa.jpg" alt="Fresh Gullisuwa on brass pedestal dish" loading="lazy" width="800" height="600">
+          </div>
+          <div class="story-img-sub">
+            <img src="assets/images/alewar_madara.jpg" alt="Rich Alewar Madara milk fudge squares" loading="lazy" width="800" height="600">
+          </div>
+          <div class="story-floating-stat">
+            <span class="stat-number">100%</span>
+            <span class="stat-label">Handcrafted with Pure Milk</span>
+          </div>
+        </div>
+
+        <div class="story-content">
+          <span class="section-badge">The Craft & Heritage</span>
+          <h2 class="section-title">Where Kano’s Sweet Traditions Meet Modern Elegance</h2>
+          <p class="story-lead">
+            In Northern Nigeria, treats like <strong>Gullisuwa</strong> and <strong>Alewar Madara</strong> are more than mere sweets — they are symbols of hospitality, celebration, and joy.
+          </p>
+          <p class="story-body">
+            Founded by <strong>Saniyyah Abdulkadir Ismail</strong>, Saniyyah’s Delights was born out of a profound passion for preserving these authentic flavors while elevating them with gourmet presentation, pure premium milk powder, and uncompromising hygiene.
+          </p>
+
+          <div class="story-pillars">
+            <div class="pillar-card">
+              <div class="pillar-icon">✨</div>
+              <div class="pillar-info">
+                <h4>Made Fresh Daily</h4>
+                <p>No stale stockpiles. Every batch of Gullisuwa and Gireba is prepared fresh to order.</p>
+              </div>
+            </div>
+            <div class="pillar-card">
+              <div class="pillar-icon">🍯</div>
+              <div class="pillar-info">
+                <h4>Finest Ingredients</h4>
+                <p>Pure whole-cream powdered milk, natural sweeteners, and rich aromatic cardamoms.</p>
+              </div>
+            </div>
+            <div class="pillar-card">
+              <div class="pillar-icon">📦</div>
+              <div class="pillar-info">
+                <h4>Sealed & Beautiful Packaging</h4>
+                <p>Air-tight, elegant gift boxes and tubs that preserve maximum crispness and crunch.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- REVIEWS & HIGHLIGHTS -->
+    <section id="reviews" class="section-reviews">
+      <div class="container">
+        <div class="section-header text-center">
+          <span class="section-badge">Customer Love</span>
+          <h2 class="section-title">Sweet Moments Shared Across Kano</h2>
+          <p class="section-subtitle">Real feedback from clients, weddings, and weekend cravings.</p>
+        </div>
+
+        <div class="reviews-grid">
+          <div class="review-card">
+            <div class="review-stars">★★★★★</div>
+            <p class="review-text">"Her Gullisuwa is hands down the best in Kano! Perfectly crunchy on the outside, milky and sweet inside. My guests at the graduation party finished two whole tubs in minutes!"</p>
+            <div class="review-author">
+              <div class="author-avatar">FA</div>
+              <div>
+                <strong>Fatima A.</strong>
+                <small>Nassarawa GRA, Kano</small>
+              </div>
+            </div>
+          </div>
+
+          <div class="review-card highlight-card">
+            <div class="review-badge">Celebration Order</div>
+            <div class="review-stars">★★★★★</div>
+            <p class="review-text">"I ordered the combination box of Gireba and Alewar Madara for our family Eid gathering. The packaging was so neat and luxurious, and Saniyyah delivered promptly to Tudun Yola."</p>
+            <div class="review-author">
+              <div class="author-avatar">BM</div>
+              <div>
+                <strong>Bilkisu M.</strong>
+                <small>Kabuga, Kano</small>
+              </div>
+            </div>
+          </div>
+
+          <div class="review-card">
+            <div class="review-stars">★★★★★</div>
+            <p class="review-text">"Where cravings meets light indeed! The spring rolls and samosas were so crisp and not oily at all, paired with the sweet Alkaki. 10/10 recommended for anyone in Kano."</p>
+            <div class="review-author">
+              <div class="author-avatar">UY</div>
+              <div>
+                <strong>Umar Y.</strong>
+                <small>Tarauni, Kano</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ORDERING & LOCATION CONTACT SECTION -->
+    <section id="contact" class="section-contact">
+      <div class="container">
+        <div class="contact-card-glass">
+          <div class="contact-grid">
+            <div class="contact-info">
+              <span class="section-badge">Fast Delivery Across Kano</span>
+              <h2 class="section-title">Ready to Satisfy Your Sweet Craving?</h2>
+              <p>
+                Ordering is fast and effortless! Choose your favorite treats directly into your tray or message Saniyyah directly on WhatsApp.
+              </p>
+
+              <div class="contact-details-list">
+                <div class="contact-item">
+                  <span class="ci-icon">📍</span>
+                  <div>
+                    <strong>Pick-up & Kitchen Base:</strong>
+                    <span>Kabuga Tudun Yola, Kano State, Nigeria</span>
+                  </div>
+                </div>
+
+                <div class="contact-item">
+                  <span class="ci-icon">💬</span>
+                  <div>
+                    <strong>WhatsApp Orders:</strong>
+                    <a href="https://wa.me/2348081454682" target="_blank" rel="noopener">+234 808 145 4682</a>
+                  </div>
+                </div>
+
+                <div class="contact-item">
+                  <span class="ci-icon">📸</span>
+                  <div>
+                    <strong>Instagram:</strong>
+                    <a href="https://instagram.com/saniy_yahhh" target="_blank" rel="noopener">@saniy_yahhh</a>
+                  </div>
+                </div>
+
+                <div class="contact-item">
+                  <span class="ci-icon">⏰</span>
+                  <div>
+                    <strong>Operating Hours:</strong>
+                    <span>Monday – Sunday: 8:00 AM – 9:00 PM</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="contact-form-col">
+              <div class="order-assistant-box">
+                <div class="assistant-header">
+                  <div class="assistant-badge">⚡ Instant WhatsApp Order Helper</div>
+                  <h3>Quick Direct Inquiry</h3>
+                  <p>Send your custom request straight to Saniyyah's WhatsApp</p>
+                </div>
+
+                <form id="quickInquiryForm" class="quick-form">
+                  <div class="form-group">
+                    <label for="customerName">Your Name</label>
+                    <input type="text" id="customerName" placeholder="e.g. Amina Garba" required>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="deliveryArea">Delivery Location in Kano</label>
+                    <select id="deliveryArea" required>
+                      <option value="">Select your area...</option>
+                      <option value="Kabuga / Tudun Yola">Kabuga / Tudun Yola</option>
+                      <option value="Nassarawa GRA">Nassarawa GRA</option>
+                      <option value="Tarauni">Tarauni</option>
+                      <option value="BUK New / Old Campus">BUK New / Old Campus</option>
+                      <option value="Fagge">Fagge</option>
+                      <option value="Hotoro">Hotoro</option>
+                      <option value="Zoo Road / Gyadi-Gyadi">Zoo Road / Gyadi-Gyadi</option>
+                      <option value="Other Location in Kano">Other Location in Kano</option>
+                    </select>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="desiredTreats">What treats are you craving?</label>
+                    <textarea id="desiredTreats" rows="3" placeholder="e.g. 2 packs of Gullisuwa, 1 box of Gireba, and Small Chops platter for a Saturday get-together"></textarea>
+                  </div>
+
+                  <button type="submit" class="btn btn-whatsapp w-full">
+                    <span>Send Order to WhatsApp</span>
+                    <svg class="wa-icon-sm" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0012.04 2zm5.78 14.07c-.24.68-1.4 1.27-1.92 1.35-.49.07-1.12.1-3.64-.94-3.21-1.33-5.26-4.57-5.42-4.78-.16-.21-1.3-1.73-1.3-3.3 0-1.57.82-2.34 1.11-2.66.29-.31.63-.39.84-.39.21 0 .42 0 .6.01.2.01.46-.07.72.55.27.65.92 2.24 1 2.4.08.17.14.37.02.59-.11.23-.17.37-.34.57-.17.2-.36.45-.52.61-.17.17-.35.36-.15.7.2.34.89 1.47 1.91 2.38 1.31 1.17 2.42 1.53 2.76 1.7.34.17.54.14.74-.09.2-.23.86-1 1.09-1.35.23-.34.46-.29.77-.17.31.11 1.99.94 2.33 1.11.34.17.57.26.65.4.08.15.08.85-.16 1.53z"/>
+                    </svg>
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- CART / ORDER TRAY DRAWER -->
+  <aside id="cartDrawer" class="cart-drawer" aria-hidden="true">
+    <div class="cart-drawer-overlay" id="cartOverlay"></div>
+    <div class="cart-drawer-panel">
+      <div class="cart-panel-header">
+        <div class="panel-title-group">
+          <h3>Your Order Tray 🛍️</h3>
+          <span id="drawerItemsCount" class="badge-count">0 items</span>
+        </div>
+        <button id="closeCartBtn" class="close-panel-btn" aria-label="Close Tray">&times;</button>
+      </div>
+
+      <div id="cartItemsList" class="cart-items-list">
+        <!-- Populated via JS -->
+        <div class="empty-cart-state">
+          <div class="empty-icon">🍬</div>
+          <p>Your treat tray is empty!</p>
+          <small>Add delicious Gullisuwa, Gireba, or Alewar Madara from the menu below.</small>
+        </div>
+      </div>
+
+      <div class="cart-panel-footer">
+        <div class="cart-summary-row">
+          <span>Batch & Pricing</span>
+          <span class="items-summary-badge">Direct Quote ✨</span>
+        </div>
+        <p class="cart-inquiry-note">Fresh batch availability & custom pricing confirmed directly with Saniyyah on WhatsApp.</p>
+
+        <div class="form-group mb-3">
+          <label for="cartDeliveryLoc">Delivery Location in Kano</label>
+          <input type="text" id="cartDeliveryLoc" placeholder="e.g. Kabuga / Tarauni / Nassarawa">
+        </div>
+
+        <div class="form-group mb-3">
+          <label for="cartEventNote">Special Instructions / Event Date</label>
+          <input type="text" id="cartEventNote" placeholder="e.g. Needed for Friday hangout at 4 PM">
+        </div>
+
+        <button id="checkoutWhatsAppBtn" class="btn btn-whatsapp w-full">
+          <span>Complete Order on WhatsApp</span>
+          <svg class="wa-icon-sm" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0012.04 2zm5.78 14.07c-.24.68-1.4 1.27-1.92 1.35-.49.07-1.12.1-3.64-.94-3.21-1.33-5.26-4.57-5.42-4.78-.16-.21-1.3-1.73-1.3-3.3 0-1.57.82-2.34 1.11-2.66.29-.31.63-.39.84-.39.21 0 .42 0 .6.01.2.01.46-.07.72.55.27.65.92 2.24 1 2.4.08.17.14.37.02.59-.11.23-.17.37-.34.57-.17.2-.36.45-.52.61-.17.17-.35.36-.15.7.2.34.89 1.47 1.91 2.38 1.31 1.17 2.42 1.53 2.76 1.7.34.17.54.14.74-.09.2-.23.86-1 1.09-1.35.23-.34.46-.29.77-.17.31.11 1.99.94 2.33 1.11.34.17.57.26.65.4.08.15.08.85-.16 1.53z"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- BIRTHDAY SURPRISE MODAL -->
+  <div id="birthdayModal" class="modal-backdrop" aria-hidden="true">
+    <div class="modal-card surprise-modal-card">
+      <button id="closeBirthdayModal" class="modal-close" aria-label="Close modal">&times;</button>
+      <div class="modal-celebrate-header">
+        <div class="birthday-avatar-badge">
+          <span>🎂</span>
+        </div>
+        <span class="sub-pill">A Special Birthday Gift</span>
+        <h2>Happy Birthday, Saniyyah! 👑</h2>
+        <p class="founder-title">Founder & Visionary behind Saniyyah's Delights</p>
+      </div>
+
+      <div class="modal-body-content">
+        <p>
+          This website was handcrafted with immense love, admiration, and pride to celebrate you on your special day.
+        </p>
+        <div class="tribute-highlight-box">
+          <p>
+            <em>"Your passion for artisanal sweets, your dedication to authentic Northern recipes, and the joy you bring into every home in Kano shines through every batch of Gullisuwa and Gireba. May this new year of life bring you boundless sweetness, prosperity, and endless growth for Saniyyah's Delights!"</em>
+          </p>
+        </div>
+
+        <div class="birthday-modal-actions">
+          <button id="burstConfettiModalBtn" class="btn btn-celebrate w-full mb-2">
+            🎉 Celebrate & Pop Confetti!
+          </button>
+          <a href="https://instagram.com/saniy_yahhh" target="_blank" rel="noopener" class="btn btn-outline-gold w-full">
+            Follow Saniyyah on Instagram (@saniy_yahhh)
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- QUICK TREAT VIEW MODAL -->
+  <div id="treatQuickModal" class="modal-backdrop" aria-hidden="true">
+    <div class="modal-card quick-view-card">
+      <button id="closeQuickModal" class="modal-close" aria-label="Close modal">&times;</button>
+      <div id="quickModalContent" class="quick-modal-grid">
+        <!-- Filled dynamically -->
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="main-footer">
+    <div class="container footer-grid">
+      <div class="footer-col brand-col">
+        <div class="brand-logo footer-logo">
+          <div class="brand-text-wrap">
+            <span class="brand-name">Saniyyah’s</span>
+            <span class="brand-sub">DELIGHTS</span>
+          </div>
+        </div>
+        <p class="footer-tagline">
+          <em>"Where cravings meets light 💡"</em>
+        </p>
+        <p class="footer-bio">
+          Artisanal confectionery, authentic Northern Nigerian sweets, and fresh small chops crafted with devotion in Kano, Nigeria.
+        </p>
+        <div class="social-links">
+          <a href="https://instagram.com/saniy_yahhh" target="_blank" rel="noopener" class="social-icon" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          </a>
+          <a href="https://wa.me/2348081454682" target="_blank" rel="noopener" class="social-icon" aria-label="WhatsApp">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0012.04 2zm5.78 14.07c-.24.68-1.4 1.27-1.92 1.35-.49.07-1.12.1-3.64-.94-3.21-1.33-5.26-4.57-5.42-4.78-.16-.21-1.3-1.73-1.3-3.3 0-1.57.82-2.34 1.11-2.66.29-.31.63-.39.84-.39.21 0 .42 0 .6.01.2.01.46-.07.72.55.27.65.92 2.24 1 2.4.08.17.14.37.02.59-.11.23-.17.37-.34.57-.17.2-.36.45-.52.61-.17.17-.35.36-.15.7.2.34.89 1.47 1.91 2.38 1.31 1.17 2.42 1.53 2.76 1.7.34.17.54.14.74-.09.2-.23.86-1 1.09-1.35.23-.34.46-.29.77-.17.31.11 1.99.94 2.33 1.11.34.17.57.26.65.4.08.15.08.85-.16 1.53z"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4 class="footer-title">Specialty Sweets</h4>
+        <ul class="footer-menu">
+          <li><a href="#menu">Hot Crispy Gullisuwa</a></li>
+          <li><a href="#menu">Alewar Madara (Milk Fudge)</a></li>
+          <li><a href="#menu">Traditional Gireba Cookies</a></li>
+          <li><a href="#menu">Honey Glazed Alkaki</a></li>
+          <li><a href="#menu">Halawar Koko / Cocoa Toffees</a></li>
+          <li><a href="#menu">Event Small Chops</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4 class="footer-title">Quick Links</h4>
+        <ul class="footer-menu">
+          <li><a href="#hero">Back to Top</a></li>
+          <li><a href="#specialties">The Story & Heritage</a></li>
+          <li><a href="#reviews">Customer Reviews</a></li>
+          <li><a href="https://wa.me/2348081454682" target="_blank" rel="noopener">Direct WhatsApp Help</a></li>
+          <li><a href="javascript:void(0)" id="footerBirthdayBtn">Birthday Surprise Card 🎂</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4 class="footer-title">Kano Kitchen Location</h4>
+        <p class="footer-address">
+          📍 Kabuga Tudun Yola,<br>
+          Kano State, Nigeria.<br>
+          📞 <a href="tel:+2348081454682">+234 808 145 4682</a>
+        </p>
+        <div class="delivery-notice">
+          <span>🛵 Delivery available to all parts of Kano metropolis</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="container bottom-flex">
+        <p>&copy; 2026 Saniyyah's Delights. All rights reserved.</p>
+        <p class="surprise-credit">Made with ❤️ as a Birthday Surprise for Saniyyah</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="app.js"></script>
+</body>
+</html>

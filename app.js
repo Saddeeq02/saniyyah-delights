@@ -1,0 +1,676 @@
+/**
+ * Saniyyah's Delights — Interactive Web App & Birthday Surprise
+ * Brand: Saniyyah's Delights (@saniy_yahhh, Kano, Nigeria)
+ * Contact: +234 808 145 4682
+ */
+
+document.addEventListener('DOMContentLoaded', () => {
+
+  // --- 1. Product Catalog Data ---
+  const treatsCatalog = [
+    {
+      id: 'gullisuwa',
+      name: 'Hot Crispy Gullisuwa',
+      hausaName: 'Gullisuwa Madara',
+      category: 'milk-sweets',
+      badge: 'Best Seller 🔥',
+      tag: 'Customer Favorite 🤤',
+      image: 'assets/images/gullisuwa.jpg',
+      gallery: [
+        'assets/images/gullisuwa.jpg',
+        'assets/images/gullisuwa_box.jpg',
+        'assets/images/gullisuwa_tray.jpg',
+        'assets/images/gullisuwa_macro.jpg'
+      ],
+      description: 'Iconic Northern Nigerian sweet fried milk balls made with whole cream powdered milk and pure sugar, fried to a golden crispy crust with a soft milky center. Shown in gourmet ceramic bowl, luxury gift box, and fresh chef\'s tray.',
+      specs: ['100% Whole Milk', 'Golden Crispy Crust', 'Fresh Daily Batch'],
+      popular: true
+    },
+    {
+      id: 'alewar_madara',
+      name: 'Traditional Alewar Madara (Milk Fudge)',
+      hausaName: 'Alewar Madara na Musamman',
+      category: 'milk-sweets',
+      badge: 'Royal Heritage ✨',
+      tag: 'Signature Treat ✨',
+      image: 'assets/images/alewar_madara.jpg',
+      gallery: [
+        'assets/images/alewar_madara.jpg',
+        'assets/images/alewar_madara_shapes.jpg',
+        'assets/images/alewar_madara_classic.jpg'
+      ],
+      description: 'Luxurious Northern Nigerian milk candy fudge handcrafted from rich whole milk and pure sweetness. Shown in traditional embossed floral relief patterns, celebration hearts & stars, and classic golden fudge squares.',
+      specs: ['Embossed Floral Motifs', 'Party Shapes & Cubes', '100% Whole Milk'],
+      popular: true
+    },
+    {
+      id: 'iloka',
+      name: 'Golden Iloka (Traditional Caramel Toffee)',
+      hausaName: 'Iloka Mai Daɗi',
+      category: 'milk-sweets',
+      badge: 'Northern Classic 🍯',
+      tag: 'Sweet Cravings 🍬',
+      image: 'assets/images/iloka.jpg',
+      gallery: [
+        'assets/images/iloka.jpg',
+        'assets/images/iloka_pack.jpg',
+        'assets/images/iloka_bowl.jpg',
+        'assets/images/iloka_mound.jpg',
+        'assets/images/iloka_side.jpg'
+      ],
+      description: 'Northern Nigeria\'s beloved chewy caramel milk toffee. Slow-cooked to glossy perfection with rich buttery notes and an irresistible melt-in-the-mouth chew. Shown in artisanal woven basket, share containers, and serving bowls.',
+      specs: ['Glossy Caramel Chew', 'Slow Cooked Milk', 'Artisanal Recipe'],
+      popular: true
+    },
+    {
+      id: 'gireba',
+      name: 'Traditional Gireba Cookies',
+      hausaName: 'Gireba na Musamman',
+      category: 'pastries',
+      badge: 'Story Highlight 😍',
+      tag: 'Story Highlight 😍',
+      image: 'assets/images/gireba.jpg',
+      description: 'Authentic Hausa-style melt-in-the-mouth shortbread cookies, delicately spiced with cardamom and vanilla with classic crackled golden tops.',
+      specs: ['Crumbly Texture', 'Cardamom & Vanilla', 'Perfect with Tea'],
+      popular: true
+    },
+    {
+      id: 'alkaki',
+      name: 'Honey Glazed Alkaki',
+      hausaName: 'Alkaki Mai Zuma da Ridi',
+      category: 'pastries',
+      badge: 'Wedding Classic 🍯',
+      tag: 'Authentic Confection 🍯',
+      image: 'assets/images/alkaki.jpg',
+      gallery: [
+        'assets/images/alkaki.jpg',
+        'assets/images/alkaki_hand.jpg',
+        'assets/images/alkaki_platter.jpg',
+        'assets/images/alkaki_macro.jpg'
+      ],
+      description: 'Traditional Hausa confections fried to a golden crunch, steeped in rich spiced honey syrup, and crowned with toasted sesame seeds. Shown in celebration serving plate, individual crunchy knot presentation, catering platter, and honey-drizzled macro close-up.',
+      specs: ['Pure Honey Glaze', 'Toasted Sesame Seeds', 'Golden & Crispy Crunch'],
+      popular: true
+    },
+    {
+      id: 'small_chops',
+      name: 'Gourmet Small Chops Platter',
+      hausaName: 'Small Chops na Biki',
+      category: 'savory',
+      badge: 'Party Platter 🥟',
+      tag: 'Party Favorite 🥟',
+      image: 'assets/images/small_chops.jpg',
+      description: 'Golden crispy cocktail samosas, spring rolls, fluffy sweet puff puff, and grilled chicken skewers. Ideal for birthdays, hangouts, and events.',
+      specs: ['Crispy & Savory', 'Puff Puff & Samosa', 'Party Ready'],
+      popular: true
+    },
+    {
+      id: 'assorted_platter',
+      name: 'Royal Assorted Delight Box',
+      hausaName: 'Akwatin Zaɓi na Musamman',
+      category: 'milk-sweets',
+      badge: 'Gift Special 🎁',
+      tag: 'Gift Special 🎁',
+      image: 'assets/images/hero_treats.jpg',
+      description: 'The ultimate tasting box featuring a generous combination of Gullisuwa, Gireba, Alewar Madara, and glazed Alkaki in a luxury ribbon-tied presentation box.',
+      specs: ['All-in-One Selection', 'Luxury Packaging', 'Best for Gifting'],
+      popular: true
+    }
+  ];
+
+  // --- 2. Cart State & Storage ---
+  let cart = JSON.parse(localStorage.getItem('saniyyah_cart')) || [];
+
+  function saveCart() {
+    localStorage.setItem('saniyyah_cart', JSON.stringify(cart));
+    updateCartUI();
+  }
+
+  // --- 3. DOM Elements ---
+  const treatsGrid = document.getElementById('treatsGrid');
+  const cartDrawer = document.getElementById('cartDrawer');
+  const cartDrawerBtn = document.getElementById('cartDrawerBtn');
+  const closeCartBtn = document.getElementById('closeCartBtn');
+  const cartOverlay = document.getElementById('cartOverlay');
+  const cartItemsList = document.getElementById('cartItemsList');
+  const cartCountBadge = document.getElementById('cartCountBadge');
+  const drawerItemsCount = document.getElementById('drawerItemsCount');
+  const cartTotalPrice = document.getElementById('cartTotalPrice');
+  const checkoutWhatsAppBtn = document.getElementById('checkoutWhatsAppBtn');
+  const cartDeliveryLoc = document.getElementById('cartDeliveryLoc');
+  const cartEventNote = document.getElementById('cartEventNote');
+
+  // Modals
+  const birthdayModal = document.getElementById('birthdayModal');
+  const surpriseModalBtn = document.getElementById('surpriseModalBtn');
+  const heroSurpriseTrigger = document.getElementById('heroSurpriseTrigger');
+  const mobileSurpriseBtn = document.getElementById('mobileSurpriseBtn');
+  const footerBirthdayBtn = document.getElementById('footerBirthdayBtn');
+  const closeBirthdayModal = document.getElementById('closeBirthdayModal');
+  const triggerConfettiBtn = document.getElementById('triggerConfettiBtn');
+  const burstConfettiModalBtn = document.getElementById('burstConfettiModalBtn');
+
+  // Quick Treat Modal
+  const treatQuickModal = document.getElementById('treatQuickModal');
+  const closeQuickModal = document.getElementById('closeQuickModal');
+  const quickModalContent = document.getElementById('quickModalContent');
+
+  // Mobile Nav
+  const menuToggle = document.getElementById('menuToggle');
+  const mobileNavDrawer = document.getElementById('mobileNavDrawer');
+  const closeMobileNavBtn = document.getElementById('closeMobileNavBtn');
+  const mobileLinks = document.querySelectorAll('.mobile-link');
+
+  // Filter Tabs
+  const filterTabs = document.querySelectorAll('.tab-btn');
+
+  // Quick Inquiry Form
+  const quickInquiryForm = document.getElementById('quickInquiryForm');
+
+  // Ribbon Close
+  const closeRibbonBtn = document.getElementById('closeRibbonBtn');
+  const birthdayRibbon = document.getElementById('birthdayRibbon');
+
+  // --- 4. Render Menu Catalog ---
+  function renderTreats(filter = 'all') {
+    if (!treatsGrid) return;
+
+    const filtered = filter === 'all' 
+      ? treatsCatalog 
+      : treatsCatalog.filter(item => item.category === filter);
+
+    treatsGrid.innerHTML = filtered.map(treat => {
+      const hasGallery = treat.gallery && treat.gallery.length > 1;
+      const gallerySwitcher = hasGallery ? `
+        <div class="card-dots-wrap">
+          <div class="card-photo-switcher">
+            ${treat.gallery.map((img, idx) => `
+              <button class="card-dot ${idx === 0 ? 'active' : ''}" 
+                      onclick="event.stopPropagation(); window.switchCardImage('${treat.id}', ${idx})" 
+                      aria-label="View photo ${idx + 1} for ${treat.name}">
+              </button>
+            `).join('')}
+          </div>
+          <span class="card-photo-count" id="count-${treat.id}">1/${treat.gallery.length} Photos</span>
+        </div>
+      ` : '';
+
+      return `
+        <article class="treat-card" data-id="${treat.id}">
+          <div class="card-media" id="media-${treat.id}">
+            <img src="${treat.image}" alt="${treat.name}" class="card-img" id="img-${treat.id}" loading="lazy" width="400" height="300">
+            <span class="card-tag">${treat.tag}</span>
+            ${gallerySwitcher}
+          </div>
+          <div class="card-body">
+            <div class="card-title-row">
+              <h3 class="treat-title">${treat.name}</h3>
+              <span class="treat-badge">${treat.badge || 'Fresh Batch'}</span>
+            </div>
+            <p class="treat-description">${treat.description}</p>
+            <div class="card-specs">
+              ${treat.specs.map(spec => `<span class="spec-chip">${spec}</span>`).join('')}
+            </div>
+            <div class="card-actions">
+              <button class="btn btn-add-tray" data-id="${treat.id}">
+                <span>+ Add to Tray</span>
+              </button>
+              <button class="btn-quick-view" data-id="${treat.id}" aria-label="Quick preview of ${treat.name}">
+                👁️ Details
+              </button>
+            </div>
+          </div>
+        </article>
+      `;
+    }).join('');
+
+    // Attach click events
+    document.querySelectorAll('.btn-add-tray').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const id = e.currentTarget.getAttribute('data-id');
+        addToCart(id);
+      });
+    });
+
+    document.querySelectorAll('.btn-quick-view').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const id = e.currentTarget.getAttribute('data-id');
+        openQuickView(id);
+      });
+    });
+  }
+
+  // --- In-Card Photo Carousel & 20s Auto-Slider Engine ---
+  const cardCurrentPhotoIndex = {};
+  const cardSlideTimers = {};
+
+  window.switchCardImage = function(productId, index, isManual = true) {
+    const treat = treatsCatalog.find(t => t.id === productId);
+    if (!treat || !treat.gallery || !treat.gallery[index]) return;
+
+    cardCurrentPhotoIndex[productId] = index;
+
+    const imgEl = document.getElementById(`img-${productId}`);
+    if (imgEl) {
+      imgEl.style.opacity = '0.35';
+      imgEl.style.transform = 'scale(0.97)';
+      setTimeout(() => {
+        imgEl.src = treat.gallery[index];
+        imgEl.style.opacity = '1';
+        imgEl.style.transform = 'scale(1)';
+      }, 160);
+    }
+
+    const mediaEl = document.getElementById(`media-${productId}`);
+    if (mediaEl) {
+      mediaEl.querySelectorAll('.card-dot').forEach((dot, idx) => {
+        dot.classList.toggle('active', idx === index);
+      });
+      const countEl = document.getElementById(`count-${productId}`);
+      if (countEl) {
+        countEl.textContent = `${index + 1}/${treat.gallery.length} Photos`;
+      }
+    }
+
+    // Reset the 20-second interval if manually clicked
+    if (isManual) {
+      scheduleAutoSlide(productId);
+    }
+  };
+
+  function scheduleAutoSlide(productId) {
+    if (cardSlideTimers[productId]) {
+      clearInterval(cardSlideTimers[productId]);
+    }
+
+    const treat = treatsCatalog.find(t => t.id === productId);
+    if (!treat || !treat.gallery || treat.gallery.length <= 1) return;
+
+    cardSlideTimers[productId] = setInterval(() => {
+      // Pause sliding if user is hovering over card
+      const cardEl = document.querySelector(`.treat-card[data-id="${productId}"]`);
+      if (cardEl && cardEl.matches(':hover')) return;
+
+      const current = cardCurrentPhotoIndex[productId] || 0;
+      const nextIdx = (current + 1) % treat.gallery.length;
+      window.switchCardImage(productId, nextIdx, false);
+    }, 20000); // 20 seconds interval
+  }
+
+  function initAutoSliders() {
+    treatsCatalog.forEach(treat => {
+      if (treat.gallery && treat.gallery.length > 1) {
+        cardCurrentPhotoIndex[treat.id] = 0;
+        scheduleAutoSlide(treat.id);
+      }
+    });
+  }
+
+  // --- 5. Cart Logic ---
+  function addToCart(productId) {
+    const product = treatsCatalog.find(p => p.id === productId);
+    if (!product) return;
+
+    const existing = cart.find(item => item.id === productId);
+    if (existing) {
+      existing.quantity += 1;
+    } else {
+      cart.push({
+        id: product.id,
+        name: product.name,
+        image: product.image,
+        quantity: 1
+      });
+    }
+
+    saveCart();
+    openCart();
+  }
+
+  function changeQty(productId, delta) {
+    const item = cart.find(i => i.id === productId);
+    if (!item) return;
+
+    item.quantity += delta;
+    if (item.quantity <= 0) {
+      cart = cart.filter(i => i.id !== productId);
+    }
+    saveCart();
+  }
+
+  function removeFromCart(productId) {
+    cart = cart.filter(i => i.id !== productId);
+    saveCart();
+  }
+
+  function updateCartUI() {
+    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+
+    if (cartCountBadge) cartCountBadge.textContent = totalItems;
+    if (drawerItemsCount) drawerItemsCount.textContent = `${totalItems} items`;
+    if (cartTotalPrice) cartTotalPrice.style.display = 'none';
+
+    if (!cartItemsList) return;
+
+    if (cart.length === 0) {
+      cartItemsList.innerHTML = `
+        <div class="empty-cart-state">
+          <div class="empty-icon">🍬</div>
+          <p>Your treat tray is empty!</p>
+          <small>Add delicious Gullisuwa, Gireba, or Alewar Madara from the menu.</small>
+        </div>
+      `;
+    } else {
+      cartItemsList.innerHTML = cart.map(item => `
+        <div class="cart-item-row">
+          <img src="${item.image}" alt="${item.name}" class="cart-item-thumb">
+          <div class="cart-item-info">
+            <h4>${item.name}</h4>
+            <small class="cart-item-note">Fresh batch • Made to order</small>
+            <div class="cart-qty-ctrl">
+              <button class="qty-btn" onclick="window.changeCartQty('${item.id}', -1)" aria-label="Decrease quantity">-</button>
+              <span class="qty-val">${item.quantity}</span>
+              <button class="qty-btn" onclick="window.changeCartQty('${item.id}', 1)" aria-label="Increase quantity">+</button>
+            </div>
+          </div>
+          <button class="cart-item-remove" onclick="window.removeCartItem('${item.id}')" aria-label="Remove item">&times;</button>
+        </div>
+      `).join('');
+    }
+  }
+
+  window.changeCartQty = changeQty;
+  window.removeCartItem = removeFromCart;
+
+  function openCart() {
+    cartDrawer.classList.add('open');
+    cartDrawer.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeCart() {
+    cartDrawer.classList.remove('open');
+    cartDrawer.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  if (cartDrawerBtn) cartDrawerBtn.addEventListener('click', openCart);
+  if (closeCartBtn) closeCartBtn.addEventListener('click', closeCart);
+  if (cartOverlay) cartOverlay.addEventListener('click', closeCart);
+
+  // --- 6. Checkout via WhatsApp ---
+  if (checkoutWhatsAppBtn) {
+    checkoutWhatsAppBtn.addEventListener('click', () => {
+      if (cart.length === 0) {
+        alert('Your order tray is empty! Please select some treats first.');
+        return;
+      }
+
+      const location = cartDeliveryLoc.value.trim() || 'Kano (To be confirmed)';
+      const notes = cartEventNote.value.trim() || 'Standard Delivery';
+
+      let message = `*ORDER INQUIRY - SANIYYAH'S DELIGHTS*\n`;
+      message += `------------------------------------\n`;
+      cart.forEach((item, index) => {
+        message += `${index + 1}. *${item.name}* (Quantity: ${item.quantity})\n`;
+      });
+      message += `------------------------------------\n`;
+      message += `*Delivery Location:* ${location}\n`;
+      message += `*Event Date / Instructions:* ${notes}\n\n`;
+      message += `Salam Saniyyah! 🌸 I would like to place an order for the treats selected above. Please let me know the total price and fresh batch availability. Thank you!`;
+
+      const waUrl = `https://wa.me/2348081454682?text=${encodeURIComponent(message)}`;
+      window.open(waUrl, '_blank');
+    });
+  }
+
+  // --- 7. Quick Inquiry Form ---
+  if (quickInquiryForm) {
+    quickInquiryForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name = document.getElementById('customerName').value.trim();
+      const area = document.getElementById('deliveryArea').value;
+      const treats = document.getElementById('desiredTreats').value.trim();
+
+      let msg = `*INQUIRY - SANIYYAH'S DELIGHTS*\n`;
+      msg += `*Name:* ${name}\n`;
+      msg += `*Location:* ${area}\n`;
+      msg += `*Requested Treats:* ${treats || 'General inquiry about fresh treats'}\n\n`;
+      msg += `Hello Saniyyah! Please let me know price and availability.`;
+
+      window.open(`https://wa.me/2348081454682?text=${encodeURIComponent(msg)}`, '_blank');
+    });
+  }
+
+  // --- 8. Quick View Modal ---
+  function openQuickView(productId) {
+    const product = treatsCatalog.find(p => p.id === productId);
+    if (!product || !quickModalContent) return;
+
+    const hasGallery = product.gallery && product.gallery.length > 1;
+    const galleryHtml = hasGallery ? `
+      <div class="qm-gallery-row">
+        ${product.gallery.map((img, idx) => `
+          <button class="qm-thumb-btn ${idx === 0 ? 'active' : ''}" data-src="${img}" aria-label="View photo ${idx + 1}">
+            <img src="${img}" alt="Thumbnail ${idx + 1}">
+          </button>
+        `).join('')}
+      </div>
+    ` : '';
+
+    quickModalContent.innerHTML = `
+      <div class="qm-media-wrap">
+        <img src="${product.image}" alt="${product.name}" class="qm-img" id="qmMainImg">
+        ${galleryHtml}
+      </div>
+      <div class="qm-details">
+        <span class="sub-pill">${product.tag}</span>
+        <h3>${product.name}</h3>
+        <p class="qm-inquiry-tag">✨ Made Fresh to Order • Custom Inquiries Welcome</p>
+        <p class="qm-desc">${product.description}</p>
+        <div class="card-specs mb-3">
+          ${product.specs.map(s => `<span class="spec-chip">${s}</span>`).join('')}
+        </div>
+        <button class="btn btn-primary w-full" id="qmAddBtn" data-id="${product.id}">
+          + Add to Order Tray
+        </button>
+      </div>
+    `;
+
+    // Hook up gallery switcher if present
+    if (hasGallery) {
+      const mainImg = document.getElementById('qmMainImg');
+      document.querySelectorAll('.qm-thumb-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          document.querySelectorAll('.qm-thumb-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          const newSrc = btn.getAttribute('data-src');
+          if (mainImg) mainImg.src = newSrc;
+        });
+      });
+    }
+
+    treatQuickModal.classList.add('open');
+    treatQuickModal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+
+    document.getElementById('qmAddBtn').addEventListener('click', () => {
+      addToCart(product.id);
+      closeQuickView();
+    });
+  }
+
+  function closeQuickView() {
+    treatQuickModal.classList.remove('open');
+    treatQuickModal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  if (closeQuickModal) closeQuickModal.addEventListener('click', closeQuickView);
+  if (treatQuickModal) {
+    treatQuickModal.addEventListener('click', (e) => {
+      if (e.target === treatQuickModal) closeQuickView();
+    });
+  }
+
+  // --- 9. Category Filter Tabs ---
+  filterTabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      filterTabs.forEach(t => {
+        t.classList.remove('active');
+        t.setAttribute('aria-selected', 'false');
+      });
+      tab.classList.add('active');
+      tab.setAttribute('aria-selected', 'true');
+      const cat = tab.getAttribute('data-category');
+      renderTreats(cat);
+      initAutoSliders();
+    });
+  });
+
+  // --- 10. Birthday Surprise Modal & Confetti ---
+  function openBirthdayModal() {
+    birthdayModal.classList.add('open');
+    birthdayModal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    burstConfetti();
+  }
+
+  function closeBirthdayModalAction() {
+    birthdayModal.classList.remove('open');
+    birthdayModal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  [surpriseModalBtn, heroSurpriseTrigger, mobileSurpriseBtn, footerBirthdayBtn].forEach(btn => {
+    if (btn) btn.addEventListener('click', openBirthdayModal);
+  });
+
+  if (closeBirthdayModal) closeBirthdayModal.addEventListener('click', closeBirthdayModalAction);
+  if (birthdayModal) {
+    birthdayModal.addEventListener('click', (e) => {
+      if (e.target === birthdayModal) closeBirthdayModalAction();
+    });
+  }
+
+  if (triggerConfettiBtn) triggerConfettiBtn.addEventListener('click', burstConfetti);
+  if (burstConfettiModalBtn) burstConfettiModalBtn.addEventListener('click', burstConfetti);
+
+  if (closeRibbonBtn && birthdayRibbon) {
+    closeRibbonBtn.addEventListener('click', () => {
+      birthdayRibbon.style.display = 'none';
+    });
+  }
+
+  // --- 11. Mobile Navigation Drawer ---
+  if (menuToggle && mobileNavDrawer) {
+    menuToggle.addEventListener('click', () => {
+      const isOpen = mobileNavDrawer.classList.toggle('open');
+      menuToggle.setAttribute('aria-expanded', isOpen);
+      document.body.style.overflow = isOpen ? 'hidden' : '';
+    });
+  }
+
+  if (closeMobileNavBtn && mobileNavDrawer) {
+    closeMobileNavBtn.addEventListener('click', () => {
+      mobileNavDrawer.classList.remove('open');
+      menuToggle.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    });
+  }
+
+  mobileLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      mobileNavDrawer.classList.remove('open');
+      menuToggle.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    });
+  });
+
+  // --- 12. Lightweight Confetti Engine ---
+  const canvas = document.getElementById('confettiCanvas');
+  const ctx = canvas ? canvas.getContext('2d') : null;
+  let particles = [];
+  let confettiAnimId = null;
+
+  function resizeCanvas() {
+    if (!canvas) return;
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  window.addEventListener('resize', resizeCanvas);
+  resizeCanvas();
+
+  const confettiColors = ['#D4AF37', '#F9E29D', '#E85D75', '#FFFDF7', '#25D366', '#FFB703', '#FB8500'];
+
+  function burstConfetti() {
+    if (!canvas || !ctx) return;
+    resizeCanvas();
+
+    const particleCount = 120;
+    for (let i = 0; i < particleCount; i++) {
+      particles.push({
+        x: canvas.width / 2 + (Math.random() * 200 - 100),
+        y: canvas.height * 0.4 + (Math.random() * 100 - 50),
+        r: Math.random() * 6 + 4,
+        d: Math.random() * particleCount,
+        color: confettiColors[Math.floor(Math.random() * confettiColors.length)],
+        tilt: Math.floor(Math.random() * 10) - 10,
+        tiltAngleIncremental: (Math.random() * 0.07) + 0.05,
+        tiltAngle: 0,
+        vx: (Math.random() - 0.5) * 16,
+        vy: (Math.random() - 0.75) * 18,
+        gravity: 0.35,
+        alpha: 1
+      });
+    }
+
+    if (!confettiAnimId) {
+      animateConfetti();
+    }
+  }
+
+  function animateConfetti() {
+    if (!ctx) return;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    for (let i = 0; i < particles.length; i++) {
+      const p = particles[i];
+      p.vy += p.gravity;
+      p.x += p.vx;
+      p.y += p.vy;
+      p.vx *= 0.98;
+      p.tiltAngle += p.tiltAngleIncremental;
+      p.tilt = Math.sin(p.tiltAngle) * 12;
+
+      ctx.save();
+      ctx.globalAlpha = p.alpha;
+      ctx.fillStyle = p.color;
+      ctx.beginPath();
+      ctx.ellipse(p.x, p.y, p.r, p.r * 0.4, p.tilt * Math.PI / 180, 0, 2 * Math.PI);
+      ctx.fill();
+      ctx.restore();
+
+      // Fade out as it falls
+      if (p.y > canvas.height * 0.7) {
+        p.alpha -= 0.02;
+      }
+    }
+
+    particles = particles.filter(p => p.alpha > 0 && p.y < canvas.height + 20);
+
+    if (particles.length > 0) {
+      confettiAnimId = requestAnimationFrame(animateConfetti);
+    } else {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      confettiAnimId = null;
+    }
+  }
+
+  // --- Initial Render ---
+  renderTreats('all');
+  initAutoSliders();
+  updateCartUI();
+
+  console.log("✨ Saniyyah's Delights Birthday Web App Initialized Successfully!");
+});
