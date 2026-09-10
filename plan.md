@@ -1,40 +1,46 @@
-# Plan: GitHub Repository Setup & Cloudflare Pages Continuous Deployment
+# Plan: Real Photos & 20s Multi-Slide Integration for Gireba
 
-## 1. Overview & Strategy
-Using **GitHub + Cloudflare Pages** for **`saniyyahdelight.com.ng`**:
-- **Target GitHub Repository**: `https://github.com/Saddeeq02/saniyyah-delights.git`
-- **100% Free Forever**: GitHub repository and Cloudflare Pages are both completely free.
-- **Continuous Deployment (CI/CD)**: Every commit and push triggers automated deployment in under 15 seconds.
-- **Custom Domain**: Instant 1-click binding to **`saniyyahdelight.com.ng`** via Cloudflare.
+## 1. Overview & Goal
+Integrate the 4 uploaded authentic photos of **Traditional Gireba Cookies** into Saniyyah's Delights. Each image will be color-graded for warm buttery tones, cleanly cropped to center the confections and remove extraneous phone interface elements, and configured into the interactive 20-second auto-sliding carousel with glowing golden widget styling.
 
 ---
 
-## 2. Execution Steps
+## 2. Real Photo Processing & Gallery Composition
+From the 4 user-uploaded photos:
 
-### Step 1: Initialize Git Repository & Stage Assets (In Progress)
-- [x] Create `.gitignore` to exclude `saniyyah_deploy.zip` and temp logs.
-- [ ] Initialize git repo: `git init`.
-- [ ] Stage all production files (`index.html`, `style.css`, `app.js`, `_headers`, `assets/images/`, `plan.md`, `.gitignore`).
-- [ ] Create initial commit: `feat: initial release of Saniyyah's Delights luxury web app`.
-- [ ] Rename default branch to `main`: `git branch -M main`.
+1. **Slide 1: Scalloped Porcelain Plate (`assets/images/gireba.jpg`)**
+   - **Source**: `media_1789051627672.jpg`
+   - **Subject**: Plump, golden Hausa shortbread cookies topped with toasted sesame seeds arranged on a scalloped serving dish with floral decor.
+   - **Enhancement**: Warm golden saturation, crisp texture enhancement for toasted sesame crowns.
 
-### Step 2: Push to GitHub Remote
-- [ ] Add remote origin:
-  ```bash
-  git remote add origin https://github.com/Saddeeq02/saniyyah-delights.git
-  ```
-- [ ] Push code to main:
-  ```bash
-  git push -u origin main
-  ```
+2. **Slide 2: Gourmet Tea Spread (`assets/images/gireba_plate.jpg`)**
+   - **Source**: `media_1789051627627.jpg`
+   - **Subject**: Full presentation spread featuring the scalloped platter flanked by twin serving dishes on white marble.
+   - **Crop**: Clean crop centered on the confectionery spread.
 
-### Step 3: Connect GitHub to Cloudflare Pages (100% Free)
-1. Go to [dash.cloudflare.com](https://dash.cloudflare.com) &rarr; **Compute (Workers & Pages)** &rarr; **Create application** &rarr; **Pages** &rarr; **Connect to Git**.
-2. Authorize GitHub and select **`Saddeeq02/saniyyah-delights`**.
-3. Build Settings:
-   - **Framework preset**: `None`
-   - **Build command**: *(leave blank)*
-   - **Build output directory**: `/` (or leave blank)
-4. Click **Save and Deploy**.
-5. Once deployed, click **Custom domains** &rarr; **Set up a custom domain** &rarr; enter **`saniyyahdelight.com.ng`**.
-6. Cloudflare automatically routes the domain and enables free SSL HTTPS.
+3. **Slide 3: Melt-in-the-Mouth Crumb Showcase (`assets/images/gireba_crumb.jpg`)**
+   - **Source**: `media_1789051627309.jpg`
+   - **Subject**: Gloved hands gently breaking open a freshly baked, warm Gireba cookie, revealing the tender crumbly interior above a fresh baking tray.
+   - **Crop**: Cropped to isolate the breaking action and baking tray.
+
+4. **Slide 4: Pantry Glass Jar Storage (`assets/images/gireba_jar.jpg`)**
+   - **Source**: `media_1789051627472.jpg`
+   - **Subject**: Tall glass pantry canister packed with sesame-topped Gireba cookies on a wooden board with bamboo lid.
+   - **Crop**: Vertically centered on the glass jar.
+
+---
+
+## 3. Implementation Steps
+1. **Asset Generation (`assets/images/`)**:
+   - Enhance, balance, and save the 4 finalized images: `gireba.jpg`, `gireba_plate.jpg`, `gireba_crumb.jpg`, and `gireba_jar.jpg`.
+2. **Catalog Update (`app.js`)**:
+   - Update `gireba` entry in `treatsCatalog`:
+     - Add `gallery: ['assets/images/gireba.jpg', 'assets/images/gireba_plate.jpg', 'assets/images/gireba_crumb.jpg', 'assets/images/gireba_jar.jpg']`.
+     - Refine description: Highlight cardamom-vanilla spiced aroma, melt-in-mouth crumb, and toasted sesame crowns.
+     - Update badge and tags: `Artisanal Bake 🍪`, `Melt-in-Mouth 🍪`.
+3. **Verification**:
+   - Validate JS syntax with `node -c app.js`.
+   - Verify HTTP 200 responses on local server.
+   - Clean up temporary test scratch files.
+4. **Git Commit & Push**:
+   - Commit changes and push to GitHub (`Saddeeq02/saniyyah-delights`), which will automatically trigger Cloudflare Pages to update the live site!

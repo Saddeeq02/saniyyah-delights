@@ -67,11 +67,17 @@ document.addEventListener('DOMContentLoaded', () => {
       name: 'Traditional Gireba Cookies',
       hausaName: 'Gireba na Musamman',
       category: 'pastries',
-      badge: 'Story Highlight 😍',
-      tag: 'Story Highlight 😍',
+      badge: 'Artisanal Bake 🍪',
+      tag: 'Melt-in-Mouth 🍪',
       image: 'assets/images/gireba.jpg',
-      description: 'Authentic Hausa-style melt-in-the-mouth shortbread cookies, delicately spiced with cardamom and vanilla with classic crackled golden tops.',
-      specs: ['Crumbly Texture', 'Cardamom & Vanilla', 'Perfect with Tea'],
+      gallery: [
+        'assets/images/gireba.jpg',
+        'assets/images/gireba_plate.jpg',
+        'assets/images/gireba_crumb.jpg',
+        'assets/images/gireba_jar.jpg'
+      ],
+      description: 'Authentic Hausa-style melt-in-the-mouth shortbread cookies, delicately spiced with cardamom and vanilla, crowned with toasted sesame seeds. Shown in scalloped porcelain serving dish, gourmet tea spread, warm crumbly texture showcase, and glass canister jar.',
+      specs: ['Crumbly Melt-in-Mouth', 'Toasted Sesame Tops', 'Cardamom & Vanilla'],
       popular: true
     },
     {
