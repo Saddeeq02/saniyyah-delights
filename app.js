@@ -63,6 +63,38 @@ document.addEventListener('DOMContentLoaded', () => {
       popular: true
     },
     {
+      id: 'albishir',
+      name: 'Royal Albishir (Delicate Milk Flakes)',
+      hausaName: 'Albishir na Madara',
+      category: 'milk-sweets',
+      badge: 'Hausa Specialty 🥛',
+      tag: 'Crispy Milk Flakes 🥛',
+      image: 'assets/images/albishir.jpg',
+      gallery: [
+        'assets/images/albishir.jpg',
+        'assets/images/albishir_bucket.jpg'
+      ],
+      description: 'Traditional Northern Nigerian crispy powdered milk sheets and delicate flakes, melted-and-fried to paper-thin sweetness. Served in gourmet black bowls and 1-liter share buckets.',
+      specs: ['Paper-Thin Milk Sheets', '100% Cream Powdered Milk', 'Party Buckets & Bowls'],
+      popular: true
+    },
+    {
+      id: 'halakar_kobo',
+      name: 'Crunchy Halakar Kobo (Groundnut Brittle)',
+      hausaName: 'Halakar Kobo mai Zuma',
+      category: 'milk-sweets',
+      badge: 'Nutty Crunch 🥜',
+      tag: 'Traditional Brittle 🥜',
+      image: 'assets/images/halakar_kobo.jpg',
+      gallery: [
+        'assets/images/halakar_kobo.jpg',
+        'assets/images/halakar_kobo_close.jpg'
+      ],
+      description: 'Authentic Hausa roasted peanut candy brittle slow-cooked in caramelized honey sugar and cut into crispy golden squares and diamonds for an addictively crunchy bite.',
+      specs: ['Roasted Groundnuts', 'Caramelized Honey Glaze', 'Crispy Golden Squares'],
+      popular: true
+    },
+    {
       id: 'gireba',
       name: 'Traditional Gireba Cookies',
       hausaName: 'Gireba na Musamman',
