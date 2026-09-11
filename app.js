@@ -27,13 +27,13 @@ document.addEventListener('DOMContentLoaded', () => {
       popular: true
     },
     {
-      id: 'alewar_madara',
-      name: 'Traditional Alewar Madara (Milk Fudge)',
-      hausaName: 'Alewar Madara na Musamman',
+      id: 'alawar_madara',
+      name: 'Traditional Alawar Madara (Milk Fudge)',
+      hausaName: 'Alawar Madara na Musamman',
       category: 'milk-sweets',
       badge: 'Royal Heritage ✨',
       tag: 'Signature Treat ✨',
-      image: 'assets/images/alewar_madara.jpg',
+      image: 'assets/images/alawar_madara.jpg',
       gallery: [
         'assets/images/alewar_madara.jpg',
         'assets/images/alewar_madara_shapes.jpg',
@@ -138,7 +138,7 @@ document.addEventListener('DOMContentLoaded', () => {
       badge: 'Gift Special 🎁',
       tag: 'Gift Special 🎁',
       image: 'assets/images/hero_treats.jpg',
-      description: 'The ultimate tasting box featuring a generous combination of Gullisuwa, Gireba, Alewar Madara, and glazed Alkaki in a luxury ribbon-tied presentation box.',
+      description: 'The ultimate tasting box featuring a generous combination of Gullisuwa, Gireba, Alawar Madara, and glazed Alkaki in a luxury ribbon-tied presentation box.',
       specs: ['All-in-One Selection', 'Luxury Packaging', 'Best for Gifting'],
       popular: true
     }
@@ -189,8 +189,8 @@ document.addEventListener('DOMContentLoaded', () => {
   function renderTreats(filter = 'all') {
     if (!treatsGrid) return;
 
-    const filtered = filter === 'all' 
-      ? treatsCatalog 
+    const filtered = filter === 'all'
+      ? treatsCatalog
       : treatsCatalog.filter(item => item.category === filter);
 
     treatsGrid.innerHTML = filtered.map(treat => {
@@ -258,7 +258,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const cardCurrentPhotoIndex = {};
   const cardSlideTimers = {};
 
-  window.switchCardImage = function(productId, index, isManual = true) {
+  window.switchCardImage = function (productId, index, isManual = true) {
     const treat = treatsCatalog.find(t => t.id === productId);
     if (!treat || !treat.gallery || !treat.gallery[index]) return;
 
@@ -371,7 +371,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <div class="empty-cart-state">
           <div class="empty-icon">🍬</div>
           <p>Your treat tray is empty!</p>
-          <small>Add delicious Gullisuwa, Gireba, or Alewar Madara from the menu.</small>
+          <small>Add delicious Gullisuwa, Gireba, or Alawar Madara from the menu.</small>
         </div>
       `;
     } else {
