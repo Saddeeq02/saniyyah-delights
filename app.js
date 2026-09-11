@@ -131,18 +131,6 @@ document.addEventListener('DOMContentLoaded', () => {
       popular: true
     },
     {
-      id: 'small_chops',
-      name: 'Gourmet Small Chops Platter',
-      hausaName: 'Small Chops na Biki',
-      category: 'savory',
-      badge: 'Party Platter 🥟',
-      tag: 'Party Favorite 🥟',
-      image: 'assets/images/small_chops.jpg',
-      description: 'Golden crispy cocktail samosas, spring rolls, fluffy sweet puff puff, and grilled chicken skewers. Ideal for birthdays, hangouts, and events.',
-      specs: ['Crispy & Savory', 'Puff Puff & Samosa', 'Party Ready'],
-      popular: true
-    },
-    {
       id: 'assorted_platter',
       name: 'Royal Assorted Delight Box',
       hausaName: 'Akwatin Zaɓi na Musamman',
