@@ -1,5 +1,5 @@
 /**
- * Saniyyah's Delights — Interactive Web App & Birthday Surprise
+ * Saniyyah's Delights — Official Artisanal Confections Web App
  * Brand: Saniyyah's Delights (@saniy_yahhh, Kano, Nigeria)
  * Contact: +234 808 145 4682
  */
@@ -168,16 +168,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const cartEventNote = document.getElementById('cartEventNote');
   const headerWhatsAppOrderBtn = document.getElementById('headerWhatsAppOrderBtn');
 
-  // Modals
-  const birthdayModal = document.getElementById('birthdayModal');
-  const surpriseModalBtn = document.getElementById('surpriseModalBtn');
-  const heroSurpriseTrigger = document.getElementById('heroSurpriseTrigger');
-  const mobileSurpriseBtn = document.getElementById('mobileSurpriseBtn');
-  const footerBirthdayBtn = document.getElementById('footerBirthdayBtn');
-  const closeBirthdayModal = document.getElementById('closeBirthdayModal');
-  const triggerConfettiBtn = document.getElementById('triggerConfettiBtn');
-  const burstConfettiModalBtn = document.getElementById('burstConfettiModalBtn');
-
   // Quick Treat Modal
   const treatQuickModal = document.getElementById('treatQuickModal');
   const closeQuickModal = document.getElementById('closeQuickModal');
@@ -194,10 +184,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Quick Inquiry Form
   const quickInquiryForm = document.getElementById('quickInquiryForm');
-
-  // Ribbon Close
-  const closeRibbonBtn = document.getElementById('closeRibbonBtn');
-  const birthdayRibbon = document.getElementById('birthdayRibbon');
 
   // --- 4. Render Menu Catalog ---
   function renderTreats(filter = 'all') {
@@ -624,41 +610,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // --- 10. Birthday Surprise Modal & Confetti ---
-  function openBirthdayModal() {
-    birthdayModal.classList.add('open');
-    birthdayModal.setAttribute('aria-hidden', 'false');
-    document.body.style.overflow = 'hidden';
-    burstConfetti();
-  }
-
-  function closeBirthdayModalAction() {
-    birthdayModal.classList.remove('open');
-    birthdayModal.setAttribute('aria-hidden', 'true');
-    document.body.style.overflow = '';
-  }
-
-  [surpriseModalBtn, heroSurpriseTrigger, mobileSurpriseBtn, footerBirthdayBtn].forEach(btn => {
-    if (btn) btn.addEventListener('click', openBirthdayModal);
-  });
-
-  if (closeBirthdayModal) closeBirthdayModal.addEventListener('click', closeBirthdayModalAction);
-  if (birthdayModal) {
-    birthdayModal.addEventListener('click', (e) => {
-      if (e.target === birthdayModal) closeBirthdayModalAction();
-    });
-  }
-
-  if (triggerConfettiBtn) triggerConfettiBtn.addEventListener('click', burstConfetti);
-  if (burstConfettiModalBtn) burstConfettiModalBtn.addEventListener('click', burstConfetti);
-
-  if (closeRibbonBtn && birthdayRibbon) {
-    closeRibbonBtn.addEventListener('click', () => {
-      birthdayRibbon.style.display = 'none';
-    });
-  }
-
-  // --- 11. Mobile Navigation Drawer ---
+  // --- 10. Mobile Navigation Drawer ---
   if (menuToggle && mobileNavDrawer) {
     menuToggle.addEventListener('click', () => {
       const isOpen = mobileNavDrawer.classList.toggle('open');
@@ -683,90 +635,10 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // --- 12. Lightweight Confetti Engine ---
-  const canvas = document.getElementById('confettiCanvas');
-  const ctx = canvas ? canvas.getContext('2d') : null;
-  let particles = [];
-  let confettiAnimId = null;
-
-  function resizeCanvas() {
-    if (!canvas) return;
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-  }
-  window.addEventListener('resize', resizeCanvas);
-  resizeCanvas();
-
-  const confettiColors = ['#D4AF37', '#F9E29D', '#E85D75', '#FFFDF7', '#25D366', '#FFB703', '#FB8500'];
-
-  function burstConfetti() {
-    if (!canvas || !ctx) return;
-    resizeCanvas();
-
-    const particleCount = 120;
-    for (let i = 0; i < particleCount; i++) {
-      particles.push({
-        x: canvas.width / 2 + (Math.random() * 200 - 100),
-        y: canvas.height * 0.4 + (Math.random() * 100 - 50),
-        r: Math.random() * 6 + 4,
-        d: Math.random() * particleCount,
-        color: confettiColors[Math.floor(Math.random() * confettiColors.length)],
-        tilt: Math.floor(Math.random() * 10) - 10,
-        tiltAngleIncremental: (Math.random() * 0.07) + 0.05,
-        tiltAngle: 0,
-        vx: (Math.random() - 0.5) * 16,
-        vy: (Math.random() - 0.75) * 18,
-        gravity: 0.35,
-        alpha: 1
-      });
-    }
-
-    if (!confettiAnimId) {
-      animateConfetti();
-    }
-  }
-
-  function animateConfetti() {
-    if (!ctx) return;
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    for (let i = 0; i < particles.length; i++) {
-      const p = particles[i];
-      p.vy += p.gravity;
-      p.x += p.vx;
-      p.y += p.vy;
-      p.vx *= 0.98;
-      p.tiltAngle += p.tiltAngleIncremental;
-      p.tilt = Math.sin(p.tiltAngle) * 12;
-
-      ctx.save();
-      ctx.globalAlpha = p.alpha;
-      ctx.fillStyle = p.color;
-      ctx.beginPath();
-      ctx.ellipse(p.x, p.y, p.r, p.r * 0.4, p.tilt * Math.PI / 180, 0, 2 * Math.PI);
-      ctx.fill();
-      ctx.restore();
-
-      // Fade out as it falls
-      if (p.y > canvas.height * 0.7) {
-        p.alpha -= 0.02;
-      }
-    }
-
-    particles = particles.filter(p => p.alpha > 0 && p.y < canvas.height + 20);
-
-    if (particles.length > 0) {
-      confettiAnimId = requestAnimationFrame(animateConfetti);
-    } else {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      confettiAnimId = null;
-    }
-  }
-
   // --- Initial Render ---
   renderTreats('all');
   initAutoSliders();
   updateCartUI();
 
-  console.log("✨ Saniyyah's Delights Birthday Web App Initialized Successfully!");
+  console.log("✨ Saniyyah's Delights Official Web App Initialized Successfully!");
 });

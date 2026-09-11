@@ -33,18 +33,7 @@
 </head>
 <body>
 
-  <!-- Confetti Canvas for Birthday Surprise -->
-  <canvas id="confettiCanvas"></canvas>
 
-  <!-- Birthday Surprise Top Ribbon / Interactive Trigger -->
-  <div id="birthdayRibbon" class="birthday-ribbon">
-    <div class="ribbon-content">
-      <span class="ribbon-sparkle">✨🎂</span>
-      <span class="ribbon-text"><strong>Special Birthday Edition!</strong> Celebrating our founder <strong>Saniyyah</strong></span>
-      <button id="surpriseModalBtn" class="ribbon-btn" aria-label="Open Birthday Surprise">Open Birthday Surprise 🎁</button>
-      <button id="closeRibbonBtn" class="ribbon-close" aria-label="Close Ribbon">&times;</button>
-    </div>
-  </div>
 
   <!-- Header & Navigation -->
   <header id="mainHeader" class="header">
@@ -121,8 +110,7 @@
         <li><a href="#contact" class="mobile-link">Kano Delivery & Contact</a></li>
       </ul>
       <div class="mobile-drawer-footer">
-        <button id="mobileSurpriseBtn" class="btn btn-celebrate w-full mb-3">🎂 Open Birthday Surprise!</button>
-        <a href="https://wa.me/2348081454682" target="_blank" rel="noopener" class="btn btn-primary w-full">Chat with Saniyyah on WhatsApp</a>
+        <a href="https://api.whatsapp.com/send?phone=2348081454682" target="_blank" rel="noopener" class="btn btn-primary w-full">Chat with Saniyyah on WhatsApp</a>
       </div>
     </div>
   </header>
@@ -143,7 +131,7 @@
             <span class="gold-gradient-text">Northern Sweet Heritage</span>
           </h1>
           <p class="hero-description">
-            Freshly prepared daily in Kabuga Tudun Yola, Kano. From melt-in-the-mouth <strong>Gullisuwa</strong> and velvety <strong>Alewar Madara</strong> to crumbly <strong>Gireba</strong> and crisp small chops — handcrafted perfection for your parties, hangouts, and precious moments.
+            Freshly prepared daily in Kabuga Tudun Yola, Kano. From melt-in-the-mouth <strong>Gullisuwa</strong> and velvety <strong>Alewar Madara</strong> to crumbly <strong>Gireba</strong> and golden <strong>Alkaki</strong> — handcrafted perfection for your celebrations, gatherings, and special occasions.
           </p>
 
           <div class="hero-cta-group">
@@ -153,9 +141,9 @@
                 <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"/>
               </svg>
             </a>
-            <button id="heroSurpriseTrigger" class="btn btn-outline-gold">
-              <span>Birthday Greeting 🎂</span>
-            </button>
+            <a href="#contact" class="btn btn-outline-gold">
+              <span>Order & Delivery Info 📍</span>
+            </a>
           </div>
 
           <!-- Feature Badges -->
@@ -215,32 +203,6 @@
       </div>
     </section>
 
-    <!-- BIRTHDAY SPOTLIGHT HERO BANNER -->
-    <section class="birthday-banner-section">
-      <div class="container">
-        <div class="birthday-card-banner">
-          <div class="card-sparkles"></div>
-          <div class="birthday-banner-grid">
-            <div class="birthday-badge-col">
-              <div class="cake-emblem">🎂</div>
-            </div>
-            <div class="birthday-text-col">
-              <span class="bday-kicker">A Loving Birthday Tribute</span>
-              <h2 class="bday-heading">Happy Birthday to our Master Confectioner, Saniyyah! 🎉</h2>
-              <p class="bday-quote">
-                "May your day be as sweet as your Gullisuwa, as rich as your Alewar Madara, and filled with endless blessings, joy, and thriving success. You bring light and sweetness to every gathering!"
-              </p>
-            </div>
-            <div class="birthday-action-col">
-              <button id="triggerConfettiBtn" class="btn btn-celebrate">
-                <span>Shower Confetti! 🎊</span>
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
     <!-- TREATS MENU SECTION -->
     <section id="menu" class="section-menu">
       <div class="container">
@@ -268,7 +230,7 @@
         <div class="custom-platter-banner">
           <div class="banner-inner">
             <div class="banner-content">
-              <h3>Planning a Wedding, Birthday Party or Hangout in Kano?</h3>
+              <h3>Planning a Wedding, Celebration, or Private Event in Kano?</h3>
               <p>We provide customized gift packages, party trays, and curated dessert boxes delivered right to your venue.</p>
             </div>
             <a href="https://api.whatsapp.com/send?phone=2348081454682&text=Hello%20Saniyyah!%20I%20need%20a%20custom%20event%20platter%20for%20my%20upcoming%20party." target="_blank" rel="noopener" class="btn btn-gold-solid">
@@ -532,40 +494,7 @@
     </div>
   </aside>
 
-  <!-- BIRTHDAY SURPRISE MODAL -->
-  <div id="birthdayModal" class="modal-backdrop" aria-hidden="true">
-    <div class="modal-card surprise-modal-card">
-      <button id="closeBirthdayModal" class="modal-close" aria-label="Close modal">&times;</button>
-      <div class="modal-celebrate-header">
-        <div class="birthday-avatar-badge">
-          <span>🎂</span>
-        </div>
-        <span class="sub-pill">A Special Birthday Gift</span>
-        <h2>Happy Birthday, Saniyyah! 👑</h2>
-        <p class="founder-title">Founder & Visionary behind Saniyyah's Delights</p>
-      </div>
 
-      <div class="modal-body-content">
-        <p>
-          This website was handcrafted with immense love, admiration, and pride to celebrate you on your special day.
-        </p>
-        <div class="tribute-highlight-box">
-          <p>
-            <em>"Your passion for artisanal sweets, your dedication to authentic Northern recipes, and the joy you bring into every home in Kano shines through every batch of Gullisuwa and Gireba. May this new year of life bring you boundless sweetness, prosperity, and endless growth for Saniyyah's Delights!"</em>
-          </p>
-        </div>
-
-        <div class="birthday-modal-actions">
-          <button id="burstConfettiModalBtn" class="btn btn-celebrate w-full mb-2">
-            🎉 Celebrate & Pop Confetti!
-          </button>
-          <a href="https://instagram.com/saniy_yahhh" target="_blank" rel="noopener" class="btn btn-outline-gold w-full">
-            Follow Saniyyah on Instagram (@saniy_yahhh)
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
 
   <!-- QUICK TREAT VIEW MODAL -->
   <div id="treatQuickModal" class="modal-backdrop" aria-hidden="true">
@@ -619,10 +548,10 @@
         <h4 class="footer-title">Quick Links</h4>
         <ul class="footer-menu">
           <li><a href="#hero">Back to Top</a></li>
+          <li><a href="#menu">Our Treats Menu</a></li>
           <li><a href="#specialties">The Story & Heritage</a></li>
           <li><a href="#reviews">Customer Reviews</a></li>
-          <li><a href="https://wa.me/2348081454682" target="_blank" rel="noopener">Direct WhatsApp Help</a></li>
-          <li><a href="javascript:void(0)" id="footerBirthdayBtn">Birthday Surprise Card 🎂</a></li>
+          <li><a href="https://api.whatsapp.com/send?phone=2348081454682" target="_blank" rel="noopener">Direct WhatsApp Help</a></li>
         </ul>
       </div>
 
@@ -642,7 +571,7 @@
     <div class="footer-bottom">
       <div class="container bottom-flex">
         <p>&copy; 2026 Saniyyah's Delights. All rights reserved.</p>
-        <p class="surprise-credit">Made with ❤️ as a Birthday Surprise for Saniyyah</p>
+        <p class="footer-brand-credit">Handcrafted with Passion in Kano, Nigeria ✨</p>
       </div>
     </div>
   </footer>
