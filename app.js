@@ -163,8 +163,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const drawerItemsCount = document.getElementById('drawerItemsCount');
   const cartTotalPrice = document.getElementById('cartTotalPrice');
   const checkoutWhatsAppBtn = document.getElementById('checkoutWhatsAppBtn');
+  const cartCustomerName = document.getElementById('cartCustomerName');
   const cartDeliveryLoc = document.getElementById('cartDeliveryLoc');
   const cartEventNote = document.getElementById('cartEventNote');
+  const headerWhatsAppOrderBtn = document.getElementById('headerWhatsAppOrderBtn');
 
   // Modals
   const birthdayModal = document.getElementById('birthdayModal');
@@ -424,7 +426,54 @@ document.addEventListener('DOMContentLoaded', () => {
   if (closeCartBtn) closeCartBtn.addEventListener('click', closeCart);
   if (cartOverlay) cartOverlay.addEventListener('click', closeCart);
 
+  // --- Universal WhatsApp Dispatch Helper ---
+  function openWhatsAppChat(message) {
+    const phone = '2348081454682';
+    const encodedText = encodeURIComponent(message);
+    const apiUrl = `https://api.whatsapp.com/send?phone=${phone}&text=${encodedText}`;
+
+    // Reliable mobile vs desktop WhatsApp dispatch
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
+    if (isMobile) {
+      // Direct navigation on mobile launches native WhatsApp app with prefilled text
+      window.location.href = apiUrl;
+    } else {
+      // Desktop opens WhatsApp Web or desktop app in a new tab
+      const newWin = window.open(apiUrl, '_blank');
+      if (!newWin || newWin.closed || typeof newWin.closed === 'undefined') {
+        window.location.href = apiUrl;
+      }
+    }
+  }
+
   // --- 6. Checkout via WhatsApp ---
+  function buildOrderMessage(name = '', location = '', notes = '') {
+    const cleanName = name.trim() || 'Valued Customer';
+    const cleanLoc = location.trim() || 'Kano (To be confirmed)';
+    const cleanNotes = notes.trim() || 'Standard Delivery / Fresh Batch';
+
+    let message = `*🛍️ NEW ORDER — SANIYYAH'S DELIGHTS*\n`;
+    message += `------------------------------------\n`;
+    message += `👤 *Customer Name:* ${cleanName}\n`;
+    message += `📍 *Delivery Location:* ${cleanLoc}\n`;
+    message += `📝 *Notes / Event Date:* ${cleanNotes}\n`;
+    message += `------------------------------------\n`;
+    message += `*📦 SELECTED TREATS:*\n`;
+
+    let totalQty = 0;
+    cart.forEach((item, index) => {
+      totalQty += item.quantity;
+      message += `${index + 1}. *${item.name}* (Quantity: ${item.quantity})\n`;
+    });
+
+    message += `------------------------------------\n`;
+    message += `*Total Packs/Items:* ${totalQty}\n\n`;
+    message += `Salam Saniyyah! 🌸 I would like to place an order for the treats selected above. Please let me know the total price and fresh batch availability. Thank you!`;
+
+    return message;
+  }
+
   if (checkoutWhatsAppBtn) {
     checkoutWhatsAppBtn.addEventListener('click', () => {
       if (cart.length === 0) {
@@ -432,21 +481,27 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
-      const location = cartDeliveryLoc.value.trim() || 'Kano (To be confirmed)';
-      const notes = cartEventNote.value.trim() || 'Standard Delivery';
+      const name = cartCustomerName ? cartCustomerName.value : '';
+      const location = cartDeliveryLoc ? cartDeliveryLoc.value : '';
+      const notes = cartEventNote ? cartEventNote.value : '';
 
-      let message = `*ORDER INQUIRY - SANIYYAH'S DELIGHTS*\n`;
-      message += `------------------------------------\n`;
-      cart.forEach((item, index) => {
-        message += `${index + 1}. *${item.name}* (Quantity: ${item.quantity})\n`;
-      });
-      message += `------------------------------------\n`;
-      message += `*Delivery Location:* ${location}\n`;
-      message += `*Event Date / Instructions:* ${notes}\n\n`;
-      message += `Salam Saniyyah! 🌸 I would like to place an order for the treats selected above. Please let me know the total price and fresh batch availability. Thank you!`;
+      const message = buildOrderMessage(name, location, notes);
+      openWhatsAppChat(message);
+    });
+  }
 
-      const waUrl = `https://wa.me/2348081454682?text=${encodeURIComponent(message)}`;
-      window.open(waUrl, '_blank');
+  // --- Header WhatsApp Order Button ---
+  if (headerWhatsAppOrderBtn) {
+    headerWhatsAppOrderBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      if (cart.length > 0) {
+        // If customer already has treats selected, open tray to review and checkout
+        openCart();
+      } else {
+        // Direct WhatsApp general inquiry
+        const defaultMsg = `Salam Saniyyah! 🌸 I would like to inquire about ordering your delicious fresh treats.`;
+        openWhatsAppChat(defaultMsg);
+      }
     });
   }
 
@@ -458,13 +513,28 @@ document.addEventListener('DOMContentLoaded', () => {
       const area = document.getElementById('deliveryArea').value;
       const treats = document.getElementById('desiredTreats').value.trim();
 
-      let msg = `*INQUIRY - SANIYYAH'S DELIGHTS*\n`;
-      msg += `*Name:* ${name}\n`;
-      msg += `*Location:* ${area}\n`;
-      msg += `*Requested Treats:* ${treats || 'General inquiry about fresh treats'}\n\n`;
-      msg += `Hello Saniyyah! Please let me know price and availability.`;
+      let msg = `*⚡ ORDER INQUIRY — SANIYYAH'S DELIGHTS*\n`;
+      msg += `------------------------------------\n`;
+      msg += `👤 *Customer Name:* ${name || 'Valued Customer'}\n`;
+      msg += `📍 *Delivery Location:* ${area || 'Kano'}\n`;
+      msg += `------------------------------------\n`;
 
-      window.open(`https://wa.me/2348081454682?text=${encodeURIComponent(msg)}`, '_blank');
+      if (cart.length > 0) {
+        msg += `*📦 TRAY TREATS:*\n`;
+        cart.forEach((item, index) => {
+          msg += `${index + 1}. *${item.name}* (Quantity: ${item.quantity})\n`;
+        });
+        if (treats) {
+          msg += `\n*✨ Additional Requests / Craving:* ${treats}\n`;
+        }
+      } else {
+        msg += `*✨ Requested Treats:* ${treats || 'General inquiry about fresh treats'}\n`;
+      }
+
+      msg += `------------------------------------\n\n`;
+      msg += `Salam Saniyyah! 🌸 Please let me know the total price and fresh batch availability. Thank you!`;
+
+      openWhatsAppChat(msg);
     });
   }
 

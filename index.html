@@ -90,7 +90,7 @@
           <span id="cartCountBadge" class="cart-badge">0</span>
         </button>
 
-        <a href="https://wa.me/2348081454682?text=Hello%20Saniyyah's%20Delights!%20I%20would%20like%20to%20order%20some%20fresh%20treats." target="_blank" rel="noopener" class="btn-whatsapp-pill" aria-label="Chat on WhatsApp">
+        <a href="https://api.whatsapp.com/send?phone=2348081454682&text=Hello%20Saniyyah's%20Delights!%20I%20would%20like%20to%20order%20some%20fresh%20treats." target="_blank" rel="noopener" id="headerWhatsAppOrderBtn" class="btn-whatsapp-pill" aria-label="Chat on WhatsApp">
           <span class="online-indicator"></span>
           <svg class="wa-icon" viewBox="0 0 24 24" fill="currentColor">
             <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0012.04 2zm5.78 14.07c-.24.68-1.4 1.27-1.92 1.35-.49.07-1.12.1-3.64-.94-3.21-1.33-5.26-4.57-5.42-4.78-.16-.21-1.3-1.73-1.3-3.3 0-1.57.82-2.34 1.11-2.66.29-.31.63-.39.84-.39.21 0 .42 0 .6.01.2.01.46-.07.72.55.27.65.92 2.24 1 2.4.08.17.14.37.02.59-.11.23-.17.37-.34.57-.17.2-.36.45-.52.61-.17.17-.35.36-.15.7.2.34.89 1.47 1.91 2.38 1.31 1.17 2.42 1.53 2.76 1.7.34.17.54.14.74-.09.2-.23.86-1 1.09-1.35.23-.34.46-.29.77-.17.31.11 1.99.94 2.33 1.11.34.17.57.26.65.4.08.15.08.85-.16 1.53z"/>
@@ -271,7 +271,7 @@
               <h3>Planning a Wedding, Birthday Party or Hangout in Kano?</h3>
               <p>We provide customized gift packages, party trays, and curated dessert boxes delivered right to your venue.</p>
             </div>
-            <a href="https://wa.me/2348081454682?text=Hello%20Saniyyah!%20I%20need%20a%20custom%20event%20platter%20for%20my%20upcoming%20party." target="_blank" rel="noopener" class="btn btn-gold-solid">
+            <a href="https://api.whatsapp.com/send?phone=2348081454682&text=Hello%20Saniyyah!%20I%20need%20a%20custom%20event%20platter%20for%20my%20upcoming%20party." target="_blank" rel="noopener" class="btn btn-gold-solid">
               <span>Book Event Package on WhatsApp</span>
             </a>
           </div>
@@ -460,7 +460,7 @@
 
                   <div class="form-group">
                     <label for="desiredTreats">What treats are you craving?</label>
-                    <textarea id="desiredTreats" rows="3" placeholder="e.g. 2 packs of Gullisuwa, 1 box of Gireba, and Small Chops platter for a Saturday get-together"></textarea>
+                    <textarea id="desiredTreats" rows="3" placeholder="e.g. 2 packs of Gullisuwa, 1 box of Gireba, and Alewar Madara for Friday get-together"></textarea>
                   </div>
 
                   <button type="submit" class="btn btn-whatsapp w-full">
@@ -506,6 +506,11 @@
           <span class="items-summary-badge">Direct Quote ✨</span>
         </div>
         <p class="cart-inquiry-note">Fresh batch availability & custom pricing confirmed directly with Saniyyah on WhatsApp.</p>
+
+        <div class="form-group mb-3">
+          <label for="cartCustomerName">Your Name</label>
+          <input type="text" id="cartCustomerName" placeholder="e.g. Amina Garba">
+        </div>
 
         <div class="form-group mb-3">
           <label for="cartDeliveryLoc">Delivery Location in Kano</label>
