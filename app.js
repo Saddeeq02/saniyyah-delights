@@ -436,13 +436,13 @@ document.addEventListener('DOMContentLoaded', () => {
   // --- 6. Checkout via WhatsApp ---
   function buildOrderMessage(name = '', location = '', notes = '') {
     const cleanName = name.trim() || 'Valued Customer';
-    const cleanLoc = location.trim() || 'Kano (To be confirmed)';
+    const cleanLoc = location.trim() || 'Local / National / International (To be confirmed)';
     const cleanNotes = notes.trim() || 'Standard Delivery / Fresh Batch';
 
     let message = `*🛍️ NEW ORDER — SANIYYAH'S DELIGHTS*\n`;
     message += `------------------------------------\n`;
     message += `👤 *Customer Name:* ${cleanName}\n`;
-    message += `📍 *Delivery Location:* ${cleanLoc}\n`;
+    message += `📍 *Delivery Location / Destination:* ${cleanLoc}\n`;
     message += `📝 *Notes / Event Date:* ${cleanNotes}\n`;
     message += `------------------------------------\n`;
     message += `*📦 SELECTED TREATS:*\n`;
@@ -455,7 +455,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     message += `------------------------------------\n`;
     message += `*Total Packs/Items:* ${totalQty}\n\n`;
-    message += `Salam Saniyyah! 🌸 I would like to place an order for the treats selected above. Please let me know the total price and fresh batch availability. Thank you!`;
+    message += `Salam Saniyyah! 🌸 I would like to place an order for the treats selected above. Please let me know the total price and delivery/shipping rates. Thank you!`;
 
     return message;
   }
@@ -485,7 +485,7 @@ document.addEventListener('DOMContentLoaded', () => {
         openCart();
       } else {
         // Direct WhatsApp general inquiry
-        const defaultMsg = `Salam Saniyyah! 🌸 I would like to inquire about ordering your delicious fresh treats.`;
+        const defaultMsg = `Salam Saniyyah! 🌸 I would like to inquire about ordering your delicious fresh treats (Local, Nationwide, or International delivery).`;
         openWhatsAppChat(defaultMsg);
       }
     });
@@ -502,7 +502,7 @@ document.addEventListener('DOMContentLoaded', () => {
       let msg = `*⚡ ORDER INQUIRY — SANIYYAH'S DELIGHTS*\n`;
       msg += `------------------------------------\n`;
       msg += `👤 *Customer Name:* ${name || 'Valued Customer'}\n`;
-      msg += `📍 *Delivery Location:* ${area || 'Kano'}\n`;
+      msg += `📍 *Delivery Location / Country:* ${area || 'Local / Nationwide / International'}\n`;
       msg += `------------------------------------\n`;
 
       if (cart.length > 0) {
@@ -518,7 +518,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       msg += `------------------------------------\n\n`;
-      msg += `Salam Saniyyah! 🌸 Please let me know the total price and fresh batch availability. Thank you!`;
+      msg += `Salam Saniyyah! 🌸 Please let me know the total price and delivery/shipping details. Thank you!`;
 
       openWhatsAppChat(msg);
     });
