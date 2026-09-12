@@ -242,7 +242,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.btn-add-tray').forEach(btn => {
       btn.addEventListener('click', (e) => {
         const id = e.currentTarget.getAttribute('data-id');
-        addToCart(id);
+        addToCart(id, e.currentTarget);
       });
     });
 
@@ -320,14 +320,53 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // --- Toast Notification Engine (Non-Blocking UX) ---
+  function showToastNotification(productName, totalItems) {
+    const toastContainer = document.getElementById('toastContainer');
+    if (!toastContainer) return;
+
+    // Create toast element
+    const toast = document.createElement('div');
+    toast.className = 'toast-notification';
+    toast.innerHTML = `
+      <div class="toast-content">
+        <span class="toast-icon">✨</span>
+        <div class="toast-text-wrap">
+          <strong>Added to Order Tray!</strong>
+          <small>${productName}</small>
+        </div>
+      </div>
+      <button class="toast-action-btn" onclick="window.openCartDrawer()">
+        View Tray (${totalItems}) →
+      </button>
+    `;
+
+    toastContainer.appendChild(toast);
+
+    // Smooth animation in
+    requestAnimationFrame(() => {
+      toast.classList.add('show');
+    });
+
+    // Auto dismiss after 3 seconds
+    setTimeout(() => {
+      toast.classList.remove('show');
+      setTimeout(() => {
+        if (toast.parentNode) toast.parentNode.removeChild(toast);
+      }, 300);
+    }, 3000);
+  }
+
   // --- 5. Cart Logic ---
-  function addToCart(productId) {
+  function addToCart(productId, targetBtn = null) {
     const product = treatsCatalog.find(p => p.id === productId);
     if (!product) return;
 
+    let currentQty = 1;
     const existing = cart.find(item => item.id === productId);
     if (existing) {
       existing.quantity += 1;
+      currentQty = existing.quantity;
     } else {
       cart.push({
         id: product.id,
@@ -338,7 +377,27 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     saveCart();
-    openCart();
+
+    // Visual button feedback on the card (DO NOT open drawer!)
+    if (targetBtn) {
+      const originalText = targetBtn.innerHTML;
+      targetBtn.classList.add('btn-added-state');
+      targetBtn.innerHTML = `<span>✓ Added (${currentQty})</span>`;
+      setTimeout(() => {
+        targetBtn.classList.remove('btn-added-state');
+        targetBtn.innerHTML = `<span>+ Add More (${currentQty})</span>`;
+      }, 1500);
+    }
+
+    // Trigger subtle floating toast notification
+    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+    showToastNotification(product.name, totalItems);
+
+    // Pulse animation on header cart button
+    if (cartDrawerBtn) {
+      cartDrawerBtn.classList.add('badge-bounce');
+      setTimeout(() => cartDrawerBtn.classList.remove('badge-bounce'), 600);
+    }
   }
 
   function changeQty(productId, delta) {
@@ -363,6 +422,18 @@ document.addEventListener('DOMContentLoaded', () => {
     if (cartCountBadge) cartCountBadge.textContent = totalItems;
     if (drawerItemsCount) drawerItemsCount.textContent = `${totalItems} items`;
     if (cartTotalPrice) cartTotalPrice.style.display = 'none';
+
+    // Mobile Sticky Cart Bar update
+    const mobileStickyCartBar = document.getElementById('mobileStickyCartBar');
+    const stickyCartText = document.getElementById('stickyCartText');
+    if (mobileStickyCartBar && stickyCartText) {
+      if (totalItems > 0) {
+        stickyCartText.textContent = `Order Tray (${totalItems} item${totalItems > 1 ? 's' : ''})`;
+        mobileStickyCartBar.style.display = 'flex';
+      } else {
+        mobileStickyCartBar.style.display = 'none';
+      }
+    }
 
     if (!cartItemsList) return;
 
@@ -395,6 +466,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   window.changeCartQty = changeQty;
   window.removeCartItem = removeFromCart;
+  window.openCartDrawer = openCart;
 
   function openCart() {
     cartDrawer.classList.add('open');
@@ -411,6 +483,10 @@ document.addEventListener('DOMContentLoaded', () => {
   if (cartDrawerBtn) cartDrawerBtn.addEventListener('click', openCart);
   if (closeCartBtn) closeCartBtn.addEventListener('click', closeCart);
   if (cartOverlay) cartOverlay.addEventListener('click', closeCart);
+
+  // Sticky Mobile Cart Bar click handler
+  const stickyOpenCartBtn = document.getElementById('stickyOpenCartBtn');
+  if (stickyOpenCartBtn) stickyOpenCartBtn.addEventListener('click', openCart);
 
   // --- Universal WhatsApp Dispatch Helper ---
   function openWhatsAppChat(message) {

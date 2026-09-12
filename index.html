@@ -639,8 +639,6 @@
           <span>🌍 Delivery Available: Local Kano 🛵 | Nationwide Nigeria 🇳🇬 | International Worldwide ✈️</span>
         </div>
       </div>
-        </div>
-      </div>
     </div>
 
     <div class="footer-bottom">
@@ -650,6 +648,20 @@
       </div>
     </div>
   </footer>
+
+  <!-- Floating Toast Notification Container (Non-blocking cart feedback) -->
+  <div id="toastContainer" class="toast-container" aria-live="polite"></div>
+
+  <!-- Sticky Mobile Cart Bar -->
+  <div id="mobileStickyCartBar" class="mobile-sticky-cart-bar" style="display: none;">
+    <div class="sticky-cart-info">
+      <span class="sticky-cart-icon">🛍️</span>
+      <span id="stickyCartText" class="sticky-cart-text">Order Tray (0 items)</span>
+    </div>
+    <button id="stickyOpenCartBtn" class="btn btn-gold-sm">
+      <span>View Tray & Checkout →</span>
+    </button>
+  </div>
 
   <!-- Scripts -->
   <script src="app.js"></script>
