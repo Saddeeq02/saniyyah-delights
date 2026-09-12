@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
       category: 'milk-sweets',
       badge: 'Royal Heritage ✨',
       tag: 'Signature Treat ✨',
-      image: 'assets/images/alawar_madara.jpg',
+      image: 'assets/images/alewar_madara.jpg',
       gallery: [
         'assets/images/alewar_madara.jpg',
         'assets/images/alewar_madara_shapes.jpg',
