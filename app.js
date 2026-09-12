@@ -451,7 +451,7 @@ document.addEventListener('DOMContentLoaded', () => {
           <img src="${item.image}" alt="${item.name}" class="cart-item-thumb">
           <div class="cart-item-info">
             <h4>${item.name}</h4>
-            <small class="cart-item-note">Fresh batch • Made to order</small>
+            <small class="cart-item-note">${item.details || 'Fresh batch • Made to order'}</small>
             <div class="cart-qty-ctrl">
               <button class="qty-btn" onclick="window.changeCartQty('${item.id}', -1)" aria-label="Decrease quantity">-</button>
               <span class="qty-val">${item.quantity}</span>
@@ -527,6 +527,9 @@ document.addEventListener('DOMContentLoaded', () => {
     cart.forEach((item, index) => {
       totalQty += item.quantity;
       message += `${index + 1}. *${item.name}* (Quantity: ${item.quantity})\n`;
+      if (item.details) {
+        message += `   ↳ ${item.details}\n`;
+      }
     });
 
     message += `------------------------------------\n`;
@@ -585,6 +588,9 @@ document.addEventListener('DOMContentLoaded', () => {
         msg += `*📦 TRAY TREATS:*\n`;
         cart.forEach((item, index) => {
           msg += `${index + 1}. *${item.name}* (Quantity: ${item.quantity})\n`;
+          if (item.details) {
+            msg += `   ↳ ${item.details}\n`;
+          }
         });
         if (treats) {
           msg += `\n*✨ Additional Requests / Craving:* ${treats}\n`;
@@ -711,10 +717,224 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  // --- 11. Interactive Custom Gift Box Builder Engine ---
+  const customBoxState = {
+    boxName: 'Royal Deluxe Box',
+    capacity: 5,
+    selectedTreats: {},
+    ribbon: 'Royal Gold 👑',
+    note: ''
+  };
+
+  const builderTreatsList = document.getElementById('builderTreatsList');
+  const capacityStatusText = document.getElementById('capacityStatusText');
+  const capacityBarFill = document.getElementById('capacityBarFill');
+  const builderSummaryTitle = document.getElementById('builderSummaryTitle');
+  const builderSummaryDesc = document.getElementById('builderSummaryDesc');
+  const addCustomBoxToTrayBtn = document.getElementById('addCustomBoxToTrayBtn');
+  const orderCustomBoxWhatsAppBtn = document.getElementById('orderCustomBoxWhatsAppBtn');
+  const customGiftNoteInput = document.getElementById('customGiftNote');
+
+  function getTotalSelectedSlots() {
+    return Object.values(customBoxState.selectedTreats).reduce((sum, val) => sum + val, 0);
+  }
+
+  function renderBuilderTreats() {
+    if (!builderTreatsList) return;
+
+    const boxTreats = treatsCatalog.filter(t => t.id !== 'assorted_platter');
+
+    builderTreatsList.innerHTML = boxTreats.map(treat => {
+      const count = customBoxState.selectedTreats[treat.id] || 0;
+      return `
+        <div class="builder-treat-row" data-id="${treat.id}">
+          <div class="b-treat-info">
+            <img src="${treat.image}" alt="${treat.name}" class="b-treat-thumb">
+            <div>
+              <strong class="b-treat-name">${treat.name}</strong>
+              <small class="b-treat-tag">${treat.hausaName || treat.specs[0]}</small>
+            </div>
+          </div>
+          <div class="b-stepper">
+            <button type="button" class="b-step-btn minus" onclick="window.updateCustomBoxTreat('${treat.id}', -1)" ${count <= 0 ? 'disabled' : ''}>-</button>
+            <span class="b-count-val">${count}</span>
+            <button type="button" class="b-step-btn plus" onclick="window.updateCustomBoxTreat('${treat.id}', 1)">+</button>
+          </div>
+        </div>
+      `;
+    }).join('');
+
+    updateBuilderUI();
+  }
+
+  function updateBuilderUI() {
+    const currentSlots = getTotalSelectedSlots();
+    const capacity = customBoxState.capacity;
+    const percentage = Math.min(100, Math.round((currentSlots / capacity) * 100));
+
+    if (capacityStatusText) {
+      capacityStatusText.innerHTML = `Selected: <strong>${currentSlots} / ${capacity} slots</strong>`;
+    }
+
+    if (capacityBarFill) {
+      capacityBarFill.style.width = `${percentage}%`;
+      if (currentSlots === capacity) {
+        capacityBarFill.style.background = 'linear-gradient(90deg, #28a745, #208637)';
+      } else {
+        capacityBarFill.style.background = 'linear-gradient(90deg, #F9E29D, #D4AF37)';
+      }
+    }
+
+    if (builderSummaryTitle) {
+      builderSummaryTitle.textContent = `${customBoxState.boxName} (${capacity} Slots) • ${customBoxState.ribbon}`;
+    }
+
+    if (builderSummaryDesc) {
+      const selectedNames = Object.entries(customBoxState.selectedTreats)
+        .filter(([_, qty]) => qty > 0)
+        .map(([id, qty]) => {
+          const t = treatsCatalog.find(item => item.id === id);
+          return `${qty}x ${t ? t.name : id}`;
+        });
+
+      if (selectedNames.length === 0) {
+        builderSummaryDesc.textContent = 'Select treats to fill your custom gift box...';
+      } else {
+        builderSummaryDesc.textContent = `Includes: ${selectedNames.join(', ')}`;
+      }
+    }
+  }
+
+  window.updateCustomBoxTreat = function(treatId, delta) {
+    const current = customBoxState.selectedTreats[treatId] || 0;
+    const totalSlots = getTotalSelectedSlots();
+
+    if (delta > 0 && totalSlots >= customBoxState.capacity) {
+      alert(`You have reached the maximum capacity of ${customBoxState.capacity} slots for the ${customBoxState.boxName}. To add more treats, select the Grand Celebration Platter!`);
+      return;
+    }
+
+    const nextVal = current + delta;
+    if (nextVal <= 0) {
+      delete customBoxState.selectedTreats[treatId];
+    } else {
+      customBoxState.selectedTreats[treatId] = nextVal;
+    }
+
+    renderBuilderTreats();
+  };
+
+  document.querySelectorAll('.box-tier-card').forEach(card => {
+    card.addEventListener('click', () => {
+      document.querySelectorAll('.box-tier-card').forEach(c => c.classList.remove('active'));
+      card.classList.add('active');
+
+      const newCap = parseInt(card.getAttribute('data-capacity'), 10);
+      const newName = card.getAttribute('data-name');
+
+      customBoxState.capacity = newCap;
+      customBoxState.boxName = newName;
+
+      while (getTotalSelectedSlots() > newCap) {
+        const keys = Object.keys(customBoxState.selectedTreats);
+        if (keys.length === 0) break;
+        const lastKey = keys[keys.length - 1];
+        customBoxState.selectedTreats[lastKey] -= 1;
+        if (customBoxState.selectedTreats[lastKey] <= 0) {
+          delete customBoxState.selectedTreats[lastKey];
+        }
+      }
+
+      renderBuilderTreats();
+    });
+  });
+
+  document.querySelectorAll('.ribbon-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.ribbon-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      customBoxState.ribbon = btn.getAttribute('data-ribbon');
+      updateBuilderUI();
+    });
+  });
+
+  if (customGiftNoteInput) {
+    customGiftNoteInput.addEventListener('input', (e) => {
+      customBoxState.note = e.target.value.trim();
+    });
+  }
+
+  if (addCustomBoxToTrayBtn) {
+    addCustomBoxToTrayBtn.addEventListener('click', () => {
+      const totalSlots = getTotalSelectedSlots();
+      if (totalSlots === 0) {
+        alert('Please select at least 1 treat to build your custom box!');
+        return;
+      }
+
+      const breakdown = Object.entries(customBoxState.selectedTreats)
+        .filter(([_, qty]) => qty > 0)
+        .map(([id, qty]) => {
+          const t = treatsCatalog.find(item => item.id === id);
+          return `${qty}x ${t ? t.name : id}`;
+        }).join(', ');
+
+      const customBoxItem = {
+        id: `custom_box_${Date.now()}`,
+        name: `🎁 Custom ${customBoxState.boxName}`,
+        image: 'assets/images/hero_treats.jpg',
+        quantity: 1,
+        details: `[${breakdown}] • Ribbon: ${customBoxState.ribbon}${customBoxState.note ? ` • Note: "${customBoxState.note}"` : ''}`
+      };
+
+      cart.push(customBoxItem);
+      saveCart();
+
+      showToastNotification(`Custom ${customBoxState.boxName}`, cart.reduce((s, i) => s + i.quantity, 0));
+
+      if (cartDrawerBtn) {
+        cartDrawerBtn.classList.add('badge-bounce');
+        setTimeout(() => cartDrawerBtn.classList.remove('badge-bounce'), 600);
+      }
+    });
+  }
+
+  if (orderCustomBoxWhatsAppBtn) {
+    orderCustomBoxWhatsAppBtn.addEventListener('click', () => {
+      const totalSlots = getTotalSelectedSlots();
+      if (totalSlots === 0) {
+        alert('Please select at least 1 treat to build your custom box!');
+        return;
+      }
+
+      const breakdown = Object.entries(customBoxState.selectedTreats)
+        .filter(([_, qty]) => qty > 0)
+        .map(([id, qty]) => {
+          const t = treatsCatalog.find(item => item.id === id);
+          return `${qty}x ${t ? t.name : id}`;
+        }).join('\n- ');
+
+      let msg = `*🎁 CUSTOM GIFT BOX ORDER — SANIYYAH'S DELIGHTS*\n`;
+      msg += `------------------------------------\n`;
+      msg += `📦 *Box Tier:* ${customBoxState.boxName} (${totalSlots}/${customBoxState.capacity} Slots)\n`;
+      msg += `🎀 *Ribbon Packaging:* ${customBoxState.ribbon}\n`;
+      if (customBoxState.note) {
+        msg += `✉️ *Gift Card Note:* "${customBoxState.note}"\n`;
+      }
+      msg += `------------------------------------\n`;
+      msg += `*Selected Treats Breakdown:*\n- ${breakdown}\n`;
+      msg += `------------------------------------\n\n`;
+      msg += `Salam Saniyyah! 🌸 I would like to order this custom box. Please let me know the price and delivery timeline. Thank you!`;
+
+      openWhatsAppChat(msg);
+    });
+  }
+
   // --- Initial Render ---
   renderTreats('all');
   initAutoSliders();
   updateCartUI();
+  renderBuilderTreats();
 
   console.log("✨ Saniyyah's Delights Official Web App Initialized Successfully!");
 });

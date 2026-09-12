@@ -76,6 +76,7 @@
         <ul class="nav-list">
           <li><a href="#hero" class="nav-link active">Home</a></li>
           <li><a href="#menu" class="nav-link">Our Treats</a></li>
+          <li><a href="#custom-box" class="nav-link">Custom Box 🎁</a></li>
           <li><a href="#specialties" class="nav-link">Heritage & Craft</a></li>
           <li><a href="#reviews" class="nav-link">Moments</a></li>
           <li><a href="#contact" class="nav-link">Location</a></li>
@@ -250,18 +251,116 @@
           <!-- Dynamically populated via app.js with rich fallback items -->
         </div>
 
-        <!-- Custom Order Banner -->
-        <div class="custom-platter-banner">
-          <div class="banner-inner">
-            <div class="banner-content">
-              <h3>Planning a Wedding, Celebration, or Private Event in Kano?</h3>
-              <p>We provide customized gift packages, party trays, and curated dessert boxes delivered right to your
-                venue.</p>
+    <!-- INTERACTIVE CUSTOM GIFT BOX BUILDER SECTION -->
+    <section id="custom-box" class="section-custom-box">
+      <div class="container">
+        <div class="section-header text-center">
+          <span class="section-badge">Interactive Experience ✨</span>
+          <h2 class="section-title">Build Your Own Royal Custom Box</h2>
+          <p class="section-subtitle">
+            Curate your ideal combination of Northern Nigerian treats, choose your luxury ribbon finish, and write a personalized gift note.
+          </p>
+        </div>
+
+        <div class="builder-card-glass">
+          <!-- Step 1: Select Box Size -->
+          <div class="builder-step">
+            <div class="step-header">
+              <span class="step-num">1</span>
+              <h3>Choose Your Gift Box Size</h3>
             </div>
-            <a href="https://api.whatsapp.com/send?phone=2348081454682&text=Hello%20Saniyyah!%20I%20need%20a%20custom%20event%20platter%20for%20my%20upcoming%20party."
-              target="_blank" rel="noopener" class="btn btn-gold-solid">
-              <span>Book Event Package on WhatsApp</span>
-            </a>
+            <div class="box-tiers-grid">
+              <div class="box-tier-card" data-capacity="3" data-name="Mini Tasting Box">
+                <div class="tier-badge">Mini Box 🎁</div>
+                <div class="tier-icon">📦</div>
+                <h4>Mini Tasting Box</h4>
+                <p>3 Portion Slots • Perfect Personal Treat</p>
+              </div>
+
+              <div class="box-tier-card active" data-capacity="5" data-name="Royal Deluxe Box">
+                <div class="tier-badge popular-badge">Most Popular 👑</div>
+                <div class="tier-icon">🎁</div>
+                <h4>Royal Deluxe Box</h4>
+                <p>5 Portion Slots • Best for Gifting & Gatherings</p>
+              </div>
+
+              <div class="box-tier-card" data-capacity="8" data-name="Grand Celebration Platter">
+                <div class="tier-badge">Grand Party 🎉</div>
+                <div class="tier-icon">👑</div>
+                <h4>Grand Celebration Platter</h4>
+                <p>8 Portion Slots • Family & Event Centerpiece</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 2: Mix & Match Treats -->
+          <div class="builder-step">
+            <div class="step-header-flex">
+              <div class="sh-left">
+                <span class="step-num">2</span>
+                <h3>Mix & Match Your Treats</h3>
+              </div>
+              <div class="capacity-tracker">
+                <span id="capacityStatusText">Selected: <strong>0 / 5 slots</strong></span>
+                <div class="capacity-bar-wrap">
+                  <div id="capacityBarFill" class="capacity-bar-fill" style="width: 0%;"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="builder-treats-list" id="builderTreatsList">
+              <!-- Dynamically populated via JS with stepper controls -->
+            </div>
+          </div>
+
+          <!-- Step 3: Ribbon & Personalization -->
+          <div class="builder-step">
+            <div class="step-header">
+              <span class="step-num">3</span>
+              <h3>Packaging & Personalization</h3>
+            </div>
+
+            <div class="personalization-grid">
+              <div class="ribbon-selector-group">
+                <label>Select Satin Ribbon Color</label>
+                <div class="ribbon-options">
+                  <button type="button" class="ribbon-btn active" data-ribbon="Royal Gold 👑" style="--ribbon-color: #D4AF37;">
+                    <span>👑 Royal Gold</span>
+                  </button>
+                  <button type="button" class="ribbon-btn" data-ribbon="Satin Crimson Red 🎀" style="--ribbon-color: #C0392B;">
+                    <span>🎀 Crimson Red</span>
+                  </button>
+                  <button type="button" class="ribbon-btn" data-ribbon="Pastel Rose Pink 🌸" style="--ribbon-color: #E84393;">
+                    <span>🌸 Rose Pink</span>
+                  </button>
+                  <button type="button" class="ribbon-btn" data-ribbon="Emerald Green 🌿" style="--ribbon-color: #27AE60;">
+                    <span>🌿 Emerald Green</span>
+                  </button>
+                </div>
+              </div>
+
+              <div class="gift-card-note-group">
+                <label for="customGiftNote">Gift Card Note (Optional)</label>
+                <input type="text" id="customGiftNote" placeholder="e.g. Happy Eid Mubarak / Best Wishes for your Wedding! 🌸">
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 4: Summary & Actions -->
+          <div class="builder-footer-row">
+            <div class="builder-summary-preview">
+              <div class="b-title" id="builderSummaryTitle">Royal Deluxe Box (5 Slots)</div>
+              <div class="b-desc" id="builderSummaryDesc">Select treats to complete your box...</div>
+            </div>
+
+            <div class="builder-actions-group">
+              <button type="button" id="addCustomBoxToTrayBtn" class="btn btn-gold-solid">
+                <span>+ Add Custom Box to Tray 🛍️</span>
+              </button>
+              <button type="button" id="orderCustomBoxWhatsAppBtn" class="btn btn-whatsapp">
+                <span>Order Direct on WhatsApp 💬</span>
+              </button>
+            </div>
           </div>
         </div>
       </div>

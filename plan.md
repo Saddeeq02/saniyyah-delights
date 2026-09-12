@@ -1,32 +1,39 @@
-# Plan: Frictionless Non-Blocking Shopping Cart & Quick Multi-Select UX
+# Plan: "Build Your Own Custom Gift Box" Interactive Platter Selector
 
 ## 1. Overview & Goal
-Eliminate cart drawer interruptions when adding items so customers can seamlessly continue browsing and adding multiple treats without having the side drawer pop up on every single click.
+Build an engaging, interactive "Build Your Own Custom Box" feature for Saniyyah's Delights. Customers can choose box sizes (Mini 3-slot, Deluxe 5-slot, Grand 8-slot), mix and match their favorite treats (Gullisuwa, Alawar Madara, Iloka, Albishir, Gireba, Alkaki, Halakar Kobo), select luxury ribbon packaging, add a personalized message card, and add the customized box directly into their order tray or send it to WhatsApp with full breakdown details.
 
 ---
 
-## 2. Changes to Execute
+## 2. Architecture & Components
 
-### 1. Scripting & Cart Logic (`app.js`)
-- [ ] **Remove Auto-Open Drawer Call**: Remove `openCart()` from the core `addToCart()` function.
-- [ ] **Toast Notification System**: Create a floating toast notification (e.g. `✨ Added Gullisuwa to Tray!`) that pops up near the bottom of the screen for 2 seconds and auto-dismisses.
-- [ ] **Cart Badge Animation**: Add a pulse/bounce animation on `#cartCountBadge` and `#cartDrawerBtn` whenever an item is added.
-- [ ] **In-Card Quantity Counter / Feedback**:
-  - Show temporary button feedback (`✓ Added (1)`, `✓ Added (2)`) on the card button when clicked.
-  - Or show inline quantity stepper `[- 1 +]` directly on treat cards once added to tray.
-- [ ] **Floating Mobile Cart Bar**: For mobile phone users, display a sticky bottom bar (`View Order Tray (X items) 🛍️`) when cart has items, allowing instant checkout anytime without scrolling back up.
+### 1. HTML Markup (`index.html`)
+- [ ] **Custom Box Builder Section (`#customBoxSection`)**:
+  - Insert interactive builder section directly after the Treat Menu section.
+  - **Step 1 — Box Tier Selector**: Interactive cards for Mini Tasting Box (3 slots), Royal Deluxe Box (5 slots - featured), and Grand Celebration Platter (8 slots).
+  - **Step 2 — Treat Assortment Counter**: Visual list of all 7 treats with `[- 0 +]` stepper buttons and live slot capacity progress bar.
+  - **Step 3 — Packaging & Personalization**:
+    - Ribbon Color Picker (Royal Gold 👑, Satin Red 🎀, Pastel Pink 🌸, Emerald Green 🌿).
+    - Optional Custom Gift Card Note input box.
+  - **Step 4 — Action Buttons**: "+ Add Custom Box to Tray 🛍️" and "Order Box Directly on WhatsApp 💬".
 
-### 2. Styling (`style.css`)
-- [ ] Add `.toast-notification` floating banner styles with glassmorphism, golden accent glow, smooth slide-in/out transitions, and quick "View Tray" action link.
-- [ ] Add `.cart-badge-bounce` keyframe animation for badge feedback.
-- [ ] Add `.sticky-cart-bar` for mobile viewports.
+### 2. Logic & State Engine (`app.js`)
+- [ ] State tracker for current selected box size, target capacity, current treat counts, ribbon choice, and custom note.
+- [ ] Real-time validation (ensuring slots do not exceed capacity, capacity counter visual bar).
+- [ ] Integration with `addToCart()` to store custom box configurations in the cart tray with a rich breakdown.
+- [ ] WhatsApp message builder update to format custom box specs cleanly for Saniyyah.
+
+### 3. Styling & Aesthetics (`style.css`)
+- [ ] Glassmorphic builder card with luxury gold accents, glowing progress bar, responsive stepper controls, and ribbon badge swatches.
+- [ ] Mobile responsive layout scaling down to 320px screens.
 
 ---
 
 ## 3. Verification & Live Deployment
 1. Verify JS syntax (`node -c app.js`).
-2. Verify adding multiple products without drawer interruption.
+2. Test mix-and-match selection, capacity limits, ribbon selection, cart integration, and WhatsApp message formatting.
 3. Commit and push to GitHub `main` (`Saddeeq02/saniyyah-delights`).
-4. Live site auto-updates on Cloudflare Pages: `https://saniyyah-delights.binshuaib737.workers.dev`.
+4. Live site auto-deploys to Cloudflare Pages: `https://saniyyah-delights.binshuaib737.workers.dev`.
+
 
 
