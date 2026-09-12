@@ -509,18 +509,62 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  // --- Surprise Gift Toggle Handler ---
+  const isSurpriseGiftCheckbox = document.getElementById('isSurpriseGift');
+  const giftRecipientFields = document.getElementById('giftRecipientFields');
+
+  if (isSurpriseGiftCheckbox && giftRecipientFields) {
+    isSurpriseGiftCheckbox.addEventListener('change', (e) => {
+      if (e.target.checked) {
+        giftRecipientFields.style.display = 'block';
+        giftRecipientFields.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      } else {
+        giftRecipientFields.style.display = 'none';
+      }
+    });
+  }
+
   // --- 6. Checkout via WhatsApp ---
   function buildOrderMessage(name = '', location = '', notes = '') {
     const cleanName = name.trim() || 'Valued Customer';
     const cleanLoc = location.trim() || 'Local / National / International (To be confirmed)';
     const cleanNotes = notes.trim() || 'Standard Delivery / Fresh Batch';
 
-    let message = `*🛍️ NEW ORDER — SANIYYAH'S DELIGHTS*\n`;
-    message += `------------------------------------\n`;
-    message += `👤 *Customer Name:* ${cleanName}\n`;
-    message += `📍 *Delivery Location / Destination:* ${cleanLoc}\n`;
-    message += `📝 *Notes / Event Date:* ${cleanNotes}\n`;
-    message += `------------------------------------\n`;
+    const isGift = isSurpriseGiftCheckbox ? isSurpriseGiftCheckbox.checked : false;
+
+    let message = '';
+    if (isGift) {
+      const recipientName = document.getElementById('giftRecipientName')?.value.trim() || 'Gift Recipient';
+      const recipientAddr = document.getElementById('giftRecipientAddress')?.value.trim() || 'Kano Address (To be confirmed)';
+      const cardMsg = document.getElementById('giftCardMessage')?.value.trim();
+      const senderIdentityRadio = document.querySelector('input[name="giftSenderIdentity"]:checked')?.value;
+      const isAnonymous = senderIdentityRadio === 'anonymous';
+
+      message += `*🎁 SURPRISE GIFT ORDER — SANIYYAH'S DELIGHTS*\n`;
+      message += `------------------------------------\n`;
+      message += `👤 *Purchaser / Billing:* ${cleanName}\n`;
+      message += `📍 *Buyer Location:* ${cleanLoc}\n`;
+      message += `------------------------------------\n`;
+      message += `*💌 GIFT RECIPIENT DETAILS:*\n`;
+      message += `• *Recipient Name:* ${recipientName}\n`;
+      message += `• *Delivery Address & Phone:* ${recipientAddr}\n`;
+      if (cardMsg) {
+        message += `• *Gift Card Note:* "${cardMsg}"\n`;
+      }
+      message += `• *Sender Credit:* ${isAnonymous ? 'Send Anonymously 🤫 (Secret Admirer / Surprise Gift)' : `From ${cleanName}`}\n`;
+      if (notes) {
+        message += `• *Special Instructions:* ${cleanNotes}\n`;
+      }
+      message += `------------------------------------\n`;
+    } else {
+      message += `*🛍️ NEW ORDER — SANIYYAH'S DELIGHTS*\n`;
+      message += `------------------------------------\n`;
+      message += `👤 *Customer Name:* ${cleanName}\n`;
+      message += `📍 *Delivery Location / Destination:* ${cleanLoc}\n`;
+      message += `📝 *Notes / Event Date:* ${cleanNotes}\n`;
+      message += `------------------------------------\n`;
+    }
+
     message += `*📦 SELECTED TREATS:*\n`;
 
     let totalQty = 0;
@@ -534,7 +578,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     message += `------------------------------------\n`;
     message += `*Total Packs/Items:* ${totalQty}\n\n`;
-    message += `Salam Saniyyah! 🌸 I would like to place an order for the treats selected above. Please let me know the total price and delivery/shipping rates. Thank you!`;
+
+    if (isGift) {
+      message += `Salam Saniyyah! 🌸 I am placing this as a *Surprise Gift Order* for the recipient listed above. Please let me know the total price and fresh batch delivery details. Thank you!`;
+    } else {
+      message += `Salam Saniyyah! 🌸 I would like to place an order for the treats selected above. Please let me know the total price and delivery/shipping rates. Thank you!`;
+    }
 
     return message;
   }

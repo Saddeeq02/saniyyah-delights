@@ -646,6 +646,52 @@
           <input type="text" id="cartEventNote" placeholder="e.g. Needed for Friday hangout at 4 PM">
         </div>
 
+        <!-- Surprise Gift Option -->
+        <div class="gift-switch-card">
+          <label class="gift-checkbox-label" for="isSurpriseGift">
+            <input type="checkbox" id="isSurpriseGift">
+            <span class="gift-switch-title">🎁 Send as a Surprise Gift to someone else?</span>
+          </label>
+        </div>
+
+        <!-- Collapsible Gift Recipient Fields -->
+        <div id="giftRecipientFields" class="gift-fields-panel" style="display: none;">
+          <div class="gift-panel-inner">
+            <div class="gift-panel-title">
+              <span>💌 Surprise Gift Recipient Details</span>
+            </div>
+
+            <div class="form-group mb-2">
+              <label for="giftRecipientName">Recipient's Full Name</label>
+              <input type="text" id="giftRecipientName" placeholder="e.g. Hajiya Maryam Garba (Mother / Friend)">
+            </div>
+
+            <div class="form-group mb-2">
+              <label for="giftRecipientAddress">Recipient's Kano Address & Phone</label>
+              <input type="text" id="giftRecipientAddress" placeholder="e.g. House 14, Nassarawa GRA, Kano • 08030000000">
+            </div>
+
+            <div class="form-group mb-2">
+              <label for="giftCardMessage">Gift Card Greeting Note</label>
+              <textarea id="giftCardMessage" rows="2" placeholder="e.g. Happy Birthday Umma! Wishing you love from London 🌸"></textarea>
+            </div>
+
+            <div class="form-group mb-1">
+              <label>Sender Identity</label>
+              <div class="sender-radio-options">
+                <label class="radio-label">
+                  <input type="radio" name="giftSenderIdentity" value="named" checked>
+                  <span>Include My Name as Sender</span>
+                </label>
+                <label class="radio-label">
+                  <input type="radio" name="giftSenderIdentity" value="anonymous">
+                  <span>Send Anonymously 🤫 (Secret Admirer / Surprise)</span>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <button id="checkoutWhatsAppBtn" class="btn btn-whatsapp w-full">
           <span>Complete Order on WhatsApp</span>
           <svg class="wa-icon-sm" viewBox="0 0 24 24" fill="currentColor">
