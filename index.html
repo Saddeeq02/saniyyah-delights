@@ -614,91 +614,93 @@
         <button id="closeCartBtn" class="close-panel-btn" aria-label="Close Tray">&times;</button>
       </div>
 
-      <div id="cartItemsList" class="cart-items-list">
-        <!-- Populated via JS -->
-        <div class="empty-cart-state">
-          <div class="empty-icon">🍬</div>
-          <p>Your treat tray is empty!</p>
-          <small>Add delicious Gullisuwa, Gireba, or Alawar Madara from the menu below.</small>
-        </div>
-      </div>
-
-      <div class="cart-panel-footer">
-        <div class="cart-summary-row">
-          <span>Batch & Pricing</span>
-          <span class="items-summary-badge">Direct Quote ✨</span>
-        </div>
-        <p class="cart-inquiry-note">Fresh batch availability & custom pricing confirmed directly with Saniyyah on
-          WhatsApp.</p>
-
-        <div class="form-group mb-3">
-          <label for="cartCustomerName">Your Name</label>
-          <input type="text" id="cartCustomerName" placeholder="e.g. Amina Garba">
-        </div>
-
-        <div class="form-group mb-3">
-          <label for="cartDeliveryLoc">Delivery Location (Local / National / International)</label>
-          <input type="text" id="cartDeliveryLoc" placeholder="e.g. Kano Metropolis, Abuja 🇳🇬, or London UK 🌍">
-        </div>
-
-        <div class="form-group mb-3">
-          <label for="cartEventNote">Special Instructions / Event Date</label>
-          <input type="text" id="cartEventNote" placeholder="e.g. Needed for Friday hangout at 4 PM">
-        </div>
-
-        <!-- Surprise Gift Option -->
-        <div class="gift-switch-card">
-          <label class="gift-checkbox-label" for="isSurpriseGift">
-            <input type="checkbox" id="isSurpriseGift">
-            <span class="gift-switch-title">🎁 Send as a Surprise Gift to someone else?</span>
-          </label>
-        </div>
-
-        <!-- Collapsible Gift Recipient Fields -->
-        <div id="giftRecipientFields" class="gift-fields-panel" style="display: none;">
-          <div class="gift-panel-inner">
-            <div class="gift-panel-title">
-              <span>💌 Surprise Gift Recipient Details</span>
-            </div>
-
-            <div class="form-group mb-2">
-              <label for="giftRecipientName">Recipient's Full Name</label>
-              <input type="text" id="giftRecipientName" placeholder="e.g. Hajiya Maryam Garba (Mother / Friend)">
-            </div>
-
-            <div class="form-group mb-2">
-              <label for="giftRecipientAddress">Recipient's Kano Address & Phone</label>
-              <input type="text" id="giftRecipientAddress" placeholder="e.g. House 14, Nassarawa GRA, Kano • 08030000000">
-            </div>
-
-            <div class="form-group mb-2">
-              <label for="giftCardMessage">Gift Card Greeting Note</label>
-              <textarea id="giftCardMessage" rows="2" placeholder="e.g. Happy Birthday Umma! Wishing you love from London 🌸"></textarea>
-            </div>
-
-            <div class="form-group mb-1">
-              <label>Sender Identity</label>
-              <div class="sender-radio-options">
-                <label class="radio-label">
-                  <input type="radio" name="giftSenderIdentity" value="named" checked>
-                  <span>Include My Name as Sender</span>
-                </label>
-                <label class="radio-label">
-                  <input type="radio" name="giftSenderIdentity" value="anonymous">
-                  <span>Send Anonymously 🤫 (Secret Admirer / Surprise)</span>
-                </label>
-              </div>
-            </div>
+      <div class="cart-drawer-body">
+        <div id="cartItemsList" class="cart-items-list">
+          <!-- Populated via JS -->
+          <div class="empty-cart-state">
+            <div class="empty-icon">🍬</div>
+            <p>Your treat tray is empty!</p>
+            <small>Add delicious Gullisuwa, Gireba, or Alawar Madara from the menu below.</small>
           </div>
         </div>
 
-        <button id="checkoutWhatsAppBtn" class="btn btn-whatsapp w-full">
-          <span>Complete Order on WhatsApp</span>
-          <svg class="wa-icon-sm" viewBox="0 0 24 24" fill="currentColor">
-            <path
-              d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0012.04 2zm5.78 14.07c-.24.68-1.4 1.27-1.92 1.35-.49.07-1.12.1-3.64-.94-3.21-1.33-5.26-4.57-5.42-4.78-.16-.21-1.3-1.73-1.3-3.3 0-1.57.82-2.34 1.11-2.66.29-.31.63-.39.84-.39.21 0 .42 0 .6.01.2.01.46-.07.72.55.27.65.92 2.24 1 2.4.08.17.14.37.02.59-.11.23-.17.37-.34.57-.17.2-.36.45-.52.61-.17.17-.35.36-.15.7.2.34.89 1.47 1.91 2.38 1.31 1.17 2.42 1.53 2.76 1.7.34.17.54.14.74-.09.2-.23.86-1 1.09-1.35.23-.34.46-.29.77-.17.31.11 1.99.94 2.33 1.11.34.17.57.26.65.4.08.15.08.85-.16 1.53z" />
-          </svg>
-        </button>
+        <div class="cart-panel-footer">
+          <div class="cart-summary-row">
+            <span>Batch & Pricing</span>
+            <span class="items-summary-badge">Direct Quote ✨</span>
+          </div>
+          <p class="cart-inquiry-note">Fresh batch availability & custom pricing confirmed directly with Saniyyah on
+            WhatsApp.</p>
+
+          <div class="form-group mb-2">
+            <label for="cartCustomerName">Your Name</label>
+            <input type="text" id="cartCustomerName" placeholder="e.g. Amina Garba">
+          </div>
+
+          <div class="form-group mb-2">
+            <label for="cartDeliveryLoc">Delivery Location (Local / National / International)</label>
+            <input type="text" id="cartDeliveryLoc" placeholder="e.g. Kano Metropolis, Abuja 🇳🇬, or London UK 🌍">
+          </div>
+
+          <div class="form-group mb-2">
+            <label for="cartEventNote">Special Instructions / Event Date</label>
+            <input type="text" id="cartEventNote" placeholder="e.g. Needed for Friday hangout at 4 PM">
+          </div>
+
+          <!-- Surprise Gift Option -->
+          <div class="gift-switch-card">
+            <label class="gift-checkbox-label" for="isSurpriseGift">
+              <input type="checkbox" id="isSurpriseGift">
+              <span class="gift-switch-title">🎁 Send as a Surprise Gift to someone else?</span>
+            </label>
+          </div>
+
+          <!-- Collapsible Gift Recipient Fields -->
+          <div id="giftRecipientFields" class="gift-fields-panel" style="display: none;">
+            <div class="gift-panel-inner">
+              <div class="gift-panel-title">
+                <span>💌 Surprise Gift Recipient Details</span>
+              </div>
+
+              <div class="form-group mb-2">
+                <label for="giftRecipientName">Recipient's Full Name</label>
+                <input type="text" id="giftRecipientName" placeholder="e.g. Hajiya Maryam Garba (Mother / Friend)">
+              </div>
+
+              <div class="form-group mb-2">
+                <label for="giftRecipientAddress">Recipient's Kano Address & Phone</label>
+                <input type="text" id="giftRecipientAddress" placeholder="e.g. House 14, Nassarawa GRA, Kano • 08030000000">
+              </div>
+
+              <div class="form-group mb-2">
+                <label for="giftCardMessage">Gift Card Greeting Note</label>
+                <textarea id="giftCardMessage" rows="2" placeholder="e.g. Happy Birthday Umma! Wishing you love from London 🌸"></textarea>
+              </div>
+
+              <div class="form-group mb-1">
+                <label>Sender Identity</label>
+                <div class="sender-radio-options">
+                  <label class="radio-label">
+                    <input type="radio" name="giftSenderIdentity" value="named" checked>
+                    <span>Include My Name as Sender</span>
+                  </label>
+                  <label class="radio-label">
+                    <input type="radio" name="giftSenderIdentity" value="anonymous">
+                    <span>Send Anonymously 🤫 (Secret Admirer / Surprise)</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <button id="checkoutWhatsAppBtn" class="btn btn-whatsapp w-full">
+            <span>Complete Order on WhatsApp</span>
+            <svg class="wa-icon-sm" viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0012.04 2zm5.78 14.07c-.24.68-1.4 1.27-1.92 1.35-.49.07-1.12.1-3.64-.94-3.21-1.33-5.26-4.57-5.42-4.78-.16-.21-1.3-1.73-1.3-3.3 0-1.57.82-2.34 1.11-2.66.29-.31.63-.39.84-.39.21 0 .42 0 .6.01.2.01.46-.07.72.55.27.65.92 2.24 1 2.4.08.17.14.37.02.59-.11.23-.17.37-.34.57-.17.2-.36.45-.52.61-.17.17-.35.36-.15.7.2.34.89 1.47 1.91 2.38 1.31 1.17 2.42 1.53 2.76 1.7.34.17.54.14.74-.09.2-.23.86-1 1.09-1.35.23-.34.46-.29.77-.17.31.11 1.99.94 2.33 1.11.34.17.57.26.65.4.08.15.08.85-.16 1.53z" />
+            </svg>
+          </button>
+        </div>
       </div>
     </div>
   </aside>
