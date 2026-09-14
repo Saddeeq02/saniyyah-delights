@@ -1,35 +1,29 @@
-# Plan: Cart Drawer Viewport Fit & Scrollability Fix Across All Devices
+Completed At: 2026-09-14T10:20:00+01:00
+
+# Plan: Automatic Post-Checkout Cart Reset & Fresh Session Management
 
 ## 1. Overview & Goal
-Fix the Cart Drawer (`#cartDrawer`) viewport height and scrolling architecture so all form fields, surprise gift fields, and the "Complete Order on WhatsApp" button are 100% visible and comfortably scrollable on every screen resolution and height (desktop laptops, small screens, mobile phones) without requiring zooming out. Also restrict the sticky mobile cart bar strictly to mobile viewports (`max-width: 580px`).
+Ensure that whenever a customer completes their order on WhatsApp (or dispatches a direct inquiry), the cart tray automatically clears (`cart = []; localStorage.removeItem('saniyyah_cart'); updateCartUI();`) and input form fields reset cleanly. This prevents placed order items from sticking around in the cart when returning to the site or re-opening the browser.
 
 ---
 
-## 2. Changes to Execute
+## 2. Changes Executed
 
-### 1. Cart Drawer Flex & Scroll Architecture (`style.css`)
-- [ ] **Panel Flex Container**: Set `.cart-drawer-panel` to `display: flex; flex-direction: column; max-height: 100vh; height: 100vh; overflow: hidden;`.
-- [ ] **Fixed Header & Sticky Footer**:
-  - Keep `.cart-panel-header` fixed at top (`flex-shrink: 0`).
-  - Make `.cart-drawer-body` or panel inner scrollable (`overflow-y: auto; flex: 1; min-height: 0; padding-bottom: 2rem; -webkit-overflow-scrolling: touch;`).
-  - Ensure `.cart-panel-footer` forms and buttons fit compactly with comfortable padding.
-  - Add generous bottom padding (`padding-bottom: 3rem`) to `.cart-panel-footer` so the checkout button is never cut off or obscured.
-
-### 2. Desktop/Mobile Sticky Cart Bar Visibility (`style.css` & `app.js`)
-- [ ] Set `.mobile-sticky-cart-bar` to `display: none !important` by default on screens wider than 580px (`@media (min-width: 581px)`).
-- [ ] On mobile screens (`@media (max-width: 580px)`), hide `.mobile-sticky-cart-bar` when cart drawer is open (`#cartDrawer.open`) to avoid overlapping the drawer.
-
-### 3. Form Spacing & Input Optimization (`style.css`)
-- [ ] Optimize field margins (`margin-bottom: 0.5rem`), label font sizes, and input height in `.cart-panel-footer` and `#giftRecipientFields`.
-- [ ] Make `#checkoutWhatsAppBtn` prominent with glowing gold styling and full visibility.
+### 1. Scripting & Cart Clearing Logic (`app.js`)
+- [x] **`clearCart()` Function**: Added `clearCart()` helper function to reset `cart = []`, update `localStorage`, reset form inputs (name, location, event note, gift options), and update UI badges/views.
+- [x] **Checkout Trigger Integration**:
+  - In `checkoutWhatsAppBtn` click listener: After calling `openWhatsAppChat(message)`, immediately call `clearCart()` and close the drawer after a brief 600ms delay.
+  - In `orderCustomBoxWhatsAppBtn` click listener: Clear custom box builder selections and update cart UI after dispatching to WhatsApp.
+  - In `quickInquiryForm` submit handler: Clear cart items if inquiry was sent with cart items attached.
+- [x] **Manual Clear Button**: Added `#clearCartBtn` (`Clear 🗑️`) button in cart drawer header to clear tray anytime.
 
 ---
 
 ## 3. Verification & Live Deployment
-1. Verify JS syntax (`node -c app.js`).
-2. Test cart drawer scrolling at various screen heights (768px laptop, 900px desktop, 667px mobile).
-3. Commit and push to GitHub `main` (`Saddeeq02/saniyyah-delights`).
-4. Live site auto-deploys to Cloudflare Pages: `https://saniyyah-delights.binshuaib737.workers.dev`.
+1. Verified JS syntax (`node -c app.js` - Code 0).
+2. Pushed to GitHub `main` (`Saddeeq02/saniyyah-delights`).
+3. Live site auto-deploys to Cloudflare Pages: `https://saniyyah-delights.binshuaib737.workers.dev`.
+
 
 
 

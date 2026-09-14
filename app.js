@@ -152,6 +152,28 @@ document.addEventListener('DOMContentLoaded', () => {
     updateCartUI();
   }
 
+  function clearCart() {
+    cart = [];
+    localStorage.removeItem('saniyyah_cart');
+
+    if (cartCustomerName) cartCustomerName.value = '';
+    if (cartDeliveryLoc) cartDeliveryLoc.value = '';
+    if (cartEventNote) cartEventNote.value = '';
+
+    if (isSurpriseGiftCheckbox) isSurpriseGiftCheckbox.checked = false;
+    if (giftRecipientFields) giftRecipientFields.style.display = 'none';
+
+    const giftRecipientName = document.getElementById('giftRecipientName');
+    const giftRecipientAddress = document.getElementById('giftRecipientAddress');
+    const giftCardMessage = document.getElementById('giftCardMessage');
+    if (giftRecipientName) giftRecipientName.value = '';
+    if (giftRecipientAddress) giftRecipientAddress.value = '';
+    if (giftCardMessage) giftCardMessage.value = '';
+
+    updateCartUI();
+  }
+  window.clearCart = clearCart;
+
   // --- 3. DOM Elements ---
   const treatsGrid = document.getElementById('treatsGrid');
   const cartDrawer = document.getElementById('cartDrawer');
@@ -423,6 +445,11 @@ document.addEventListener('DOMContentLoaded', () => {
     if (drawerItemsCount) drawerItemsCount.textContent = `${totalItems} items`;
     if (cartTotalPrice) cartTotalPrice.style.display = 'none';
 
+    const clearCartBtn = document.getElementById('clearCartBtn');
+    if (clearCartBtn) {
+      clearCartBtn.style.display = cart.length > 0 ? 'inline-flex' : 'none';
+    }
+
     // Mobile Sticky Cart Bar update
     const mobileStickyCartBar = document.getElementById('mobileStickyCartBar');
     const stickyCartText = document.getElementById('stickyCartText');
@@ -483,6 +510,15 @@ document.addEventListener('DOMContentLoaded', () => {
   if (cartDrawerBtn) cartDrawerBtn.addEventListener('click', openCart);
   if (closeCartBtn) closeCartBtn.addEventListener('click', closeCart);
   if (cartOverlay) cartOverlay.addEventListener('click', closeCart);
+
+  const clearCartBtn = document.getElementById('clearCartBtn');
+  if (clearCartBtn) {
+    clearCartBtn.addEventListener('click', () => {
+      if (cart.length > 0) {
+        clearCart();
+      }
+    });
+  }
 
   // Sticky Mobile Cart Bar click handler
   const stickyOpenCartBtn = document.getElementById('stickyOpenCartBtn');
@@ -601,6 +637,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const message = buildOrderMessage(name, location, notes);
       openWhatsAppChat(message);
+      clearCart();
+      setTimeout(() => {
+        closeCart();
+      }, 600);
     });
   }
 
@@ -652,6 +692,9 @@ document.addEventListener('DOMContentLoaded', () => {
       msg += `Salam Saniyyah! 🌸 Please let me know the total price and delivery/shipping details. Thank you!`;
 
       openWhatsAppChat(msg);
+      if (cart.length > 0) {
+        clearCart();
+      }
     });
   }
 
@@ -976,6 +1019,11 @@ document.addEventListener('DOMContentLoaded', () => {
       msg += `Salam Saniyyah! 🌸 I would like to order this custom box. Please let me know the price and delivery timeline. Thank you!`;
 
       openWhatsAppChat(msg);
+      // Reset builder selections
+      customBoxState.selectedTreats = {};
+      renderBuilderTreats();
+      if (customGiftNoteInput) customGiftNoteInput.value = '';
+      customBoxState.note = '';
     });
   }
 
